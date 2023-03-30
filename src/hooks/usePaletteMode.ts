@@ -18,6 +18,7 @@ export const usePaletteMode = () => {
       createTheme({
         ...customTheme,
         palette: {
+          ...customTheme.palette,
           mode: settings.paletteMode,
         },
       }),
