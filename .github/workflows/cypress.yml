@@ -1,0 +1,26 @@
+name: Cypress
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - name: Cypress run
+        uses: cypress-io/github-action@master
+        with:
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 240
+          config: baseUrl=http://localhost:3000
