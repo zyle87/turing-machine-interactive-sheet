@@ -44,12 +44,12 @@ const Composition: FC = () => {
           ))}
         </Grid>
         <Grid container spacing={1}>
-          {['A', 'B', 'C', 'D', 'E', 'F'].map(verif => (
-            <Grid item xs={2} key={verif}>
+          {new Array(6).fill(0).map((_, index) => (
+            <Grid item xs={2} key={index}>
               <Box
                 sx={{
                   textAlign: 'center',
-                  background: verif === 'E' || verif === 'F' ? '#e9f8f0' : null,
+                  background: index === 4 || index === 5 ? '#e9f8f0' : null,
                 }}
               >
                 <Typography
@@ -59,17 +59,18 @@ const Composition: FC = () => {
                     fontWeight: theme.typography.fontWeightBold,
                   })}
                 >
-                  {verif}
+                  {index}
                 </Typography>
               </Box>
             </Grid>
           ))}
-          {['A', 'B', 'C', 'D', 'E', 'F'].map(verif => (
-            <Grid item xs={2} key={verif}>
+          {['A', 'B', 'C', 'D', 'E', 'F'].map(verifier => (
+            <Grid item xs={2} key={verifier}>
               <Box
                 sx={{
                   textAlign: 'center',
-                  background: verif === 'E' || verif === 'F' ? '#e9f8f0' : null,
+                  background:
+                    verifier === 'E' || verifier === 'F' ? '#e9f8f0' : null,
                   marginTop: theme.spacing(-1),
                 }}
               >
@@ -79,12 +80,7 @@ const Composition: FC = () => {
           ))}
         </Grid>
       </Box>
-      <Divider
-        sx={theme => ({
-          borderColor: theme.palette.primary.main,
-          opacity: 0.25,
-        })}
-      />
+      <Divider />
       <Box p={2}>
         <Button
           fullWidth
