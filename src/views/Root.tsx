@@ -13,10 +13,10 @@ const Root: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ margin: '8px auto', width: 320 }}>
+      <Box sx={{ margin: theme.spacing(2, 'auto'), width: 320 }}>
         <Registration />
-        <Hypothesis />
         <Composition />
+        <Hypothesis />
       </Box>
     </ThemeProvider>
   )
