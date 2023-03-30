@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material/styles'
@@ -74,7 +75,18 @@ const Composition: FC = () => {
                   marginTop: theme.spacing(-1),
                 }}
               >
-                <Checkbox color="primary" size="small" />
+                <IconButton color="primary" sx={{ mb: 0.5 }}>
+                  <Box
+                    height={20}
+                    width={20}
+                    sx={theme => ({
+                      borderWidth: 2,
+                      borderStyle: 'solid',
+                      borderColor: theme.palette.primary.main,
+                      borderRadius: theme.spacing(0.5),
+                    })}
+                  />
+                </IconButton>
               </Box>
             </Grid>
           ))}

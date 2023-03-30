@@ -9,7 +9,7 @@ const Hypothesis: FC = () => {
   return (
     <Paper
       sx={theme => ({
-        padding: theme.spacing(2, 6),
+        padding: theme.spacing(2),
         mb: 2,
       })}
     >
