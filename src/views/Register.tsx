@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import TextField from 'components/TextField'
 import { FC } from 'react'
 
-const Registration: FC = () => {
+const Register: FC = () => {
   return (
     <Box component="section" mb={2}>
       <TextField iconRender={<PersonIcon />} withStackRadius />
@@ -13,4 +13,4 @@ const Registration: FC = () => {
   )
 }
 
-export default Registration
+export default Register

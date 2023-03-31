@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 type Props = {
-  shape: 'triangle' | 'square' | 'circle'
+  shape: Shape
   size?: number
 }
 

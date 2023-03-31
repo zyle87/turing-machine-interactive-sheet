@@ -7,6 +7,7 @@ type Props = {
   withStackRadius?: boolean
   type?: 'text' | 'number' | 'password'
   customRadius?: string
+  value?: number | string
 }
 
 const TextField: FC<Props> = props => {
@@ -40,6 +41,7 @@ const TextField: FC<Props> = props => {
         type={props.type}
         min={1}
         max={5}
+        value={props.value}
         style={{
           ...theme.typography.body1,
           color: theme.palette.text.primary,
@@ -49,7 +51,7 @@ const TextField: FC<Props> = props => {
           height: 48,
           paddingLeft: props.iconRender ? theme.spacing(5) : undefined,
           textAlign: props.iconRender ? undefined : 'center',
-          fontSize: 24,
+          fontSize: theme.spacing(3),
           width: '100%',
         }}
       />

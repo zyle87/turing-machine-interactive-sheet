@@ -18,7 +18,7 @@ export const customTheme = createTheme({
     body1: {
       color: '#35b663',
       fontWeight: 700,
-      fontFamily: 'Caveat',
+      fontFamily: 'Kalam',
     },
   },
   shape: {

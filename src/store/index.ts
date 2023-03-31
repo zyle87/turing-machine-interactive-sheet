@@ -1,9 +1,13 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit'
+import compose from './slices/composeSlice'
 import settings from './slices/settingsSlice'
 import { loadState, saveState } from './storage'
 
 const preloadedState = loadState()
-const reducer = { settings }
+const reducer = {
+  compose,
+  settings,
+}
 
 export const store = configureStore({
   preloadedState,
