@@ -23,7 +23,7 @@ const TextField: FC<Props> = props => {
               '&:not(:last-child)': {
                 mb: 0.5,
               },
-              '&:first-child': {
+              '&:first-of-type': {
                 input: {
                   borderRadius: theme.spacing(2, 2, 0, 0),
                 },

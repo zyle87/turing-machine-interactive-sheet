@@ -1,5 +1,5 @@
-import True from '@mui/icons-material/CheckRounded'
-import False from '@mui/icons-material/CloseRounded'
+import Correct from '@mui/icons-material/CheckRounded'
+import Incorrect from '@mui/icons-material/CloseRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -112,8 +112,12 @@ const Composition: FC<Props> = ({ composition, index }) => {
                         left={4}
                         sx={{ color: theme.palette.text.primary }}
                       >
-                        {answer.state === true && <True fontSize="large" />}
-                        {answer.state === false && <False fontSize="large" />}
+                        {answer.state === 'correct' && (
+                          <Correct fontSize="large" />
+                        )}
+                        {answer.state === 'incorrect' && (
+                          <Incorrect fontSize="large" />
+                        )}
                       </Box>
                     </Box>
                   </Box>

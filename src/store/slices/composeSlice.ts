@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type Answer = {
   verifier: Verifier
-  state: true | false | 'unknown'
+  state: 'correct' | 'incorrect' | 'unknown'
 }
 
 type Proposal = {
@@ -77,12 +77,12 @@ export const composeSlice = createSlice({
 
       switch (answer.state) {
         case 'unknown':
-          answer.state = true
+          answer.state = 'correct'
           break
-        case true:
-          answer.state = false
+        case 'correct':
+          answer.state = 'incorrect'
           break
-        case false:
+        case 'incorrect':
           answer.state = 'unknown'
           break
       }
