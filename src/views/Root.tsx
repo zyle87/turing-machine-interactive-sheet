@@ -4,8 +4,8 @@ import Grid from '@mui/material/Grid'
 import { ThemeProvider } from '@mui/material/styles'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC } from 'react'
-import Compose from './Compose'
-import Deduce from './Deduce'
+import Composition from './Composition'
+import Code from './Code'
 import Register from './Register'
 
 const Root: FC = () => {
@@ -36,10 +36,10 @@ const Root: FC = () => {
       <Grid container justifyContent="center" spacing={2}>
         <Grid item>
           <Register />
-          <Deduce />
+          <Code />
         </Grid>
         <Grid item>
-          <Compose />
+          <Composition />
         </Grid>
       </Grid>
     </ThemeProvider>

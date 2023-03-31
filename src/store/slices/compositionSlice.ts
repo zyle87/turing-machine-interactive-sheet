@@ -10,12 +10,12 @@ type Proposal = {
   digit: Nullable<Digit>
 }
 
-export type ComposeState = {
+export type CompositionState = {
   proposals: Proposal[]
   answers: Answer[]
 }[]
 
-const initialState: ComposeState = [
+const initialState: CompositionState = [
   {
     proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
       shape,
@@ -28,11 +28,11 @@ const initialState: ComposeState = [
   },
 ]
 
-export const composeSlice = createSlice({
-  name: 'compose',
+export const compositionSlice = createSlice({
+  name: 'composition',
   initialState,
   reducers: {
-    resetCompose: () => initialState,
+    resetComposition: () => initialState,
     addComposition: state => {
       state.push({
         proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
@@ -92,6 +92,6 @@ export const composeSlice = createSlice({
   },
 })
 
-export const composeActions = composeSlice.actions
+export const compositionActions = compositionSlice.actions
 
-export default composeSlice.reducer
+export default compositionSlice.reducer

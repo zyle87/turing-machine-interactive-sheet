@@ -7,37 +7,40 @@ import Grid from '@mui/material/Grid'
 import { useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC } from 'react'
-import { ComposeState, composeActions } from 'store/slices/composeSlice'
+import {
+  CompositionState,
+  compositionActions,
+} from 'store/slices/compositionSlice'
 import ShapeIcon from './ShapeIcon'
 import SingleCharLabel from './SingleCharLabel'
 import TextField from './TextField'
 
 type Props = {
-  composition: ComposeState[number]
+  entry: CompositionState[number]
   index: number
 }
 
-const Composition: FC<Props> = ({ composition, index }) => {
+const CompositionEntry: FC<Props> = ({ entry, index }) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
   return (
     <Box>
       <Grid container spacing={0.5}>
-        {composition.proposals.map(proposal => (
+        {entry.proposals.map(proposal => (
           <Grid key={proposal.shape} item xs={4}>
             <TextField
               customRadius={
                 proposal.shape !== 'square'
                   ? proposal.shape === 'triangle'
-                    ? theme.spacing(1.5, 0, 0, 0)
-                    : theme.spacing(0, 1.5, 0, 0)
+                    ? theme.spacing(2, 0, 0, 0)
+                    : theme.spacing(0, 2, 0, 0)
                   : undefined
               }
               value={proposal.digit}
               onChange={value => {
                 dispatch(
-                  composeActions.updateProposalDigit({
+                  compositionActions.updateProposalDigit({
                     index,
                     shape: proposal.shape,
                     digit: value ? (Number(value) as Digit) : null,
@@ -57,7 +60,7 @@ const Composition: FC<Props> = ({ composition, index }) => {
       </Grid>
       <Box mt={0.5}>
         <Grid container spacing={0.5}>
-          {composition.answers.map(answer => (
+          {entry.answers.map(answer => (
             <Grid item xs={2} key={answer.verifier}>
               <Button
                 sx={{
@@ -66,13 +69,13 @@ const Composition: FC<Props> = ({ composition, index }) => {
                   borderRadius: theme.spacing(
                     0,
                     0,
-                    answer.verifier === 'F' ? 1.5 : 0,
-                    answer.verifier === 'A' ? 1.5 : 0
+                    answer.verifier === 'F' ? 2 : 0,
+                    answer.verifier === 'A' ? 2 : 0
                   ),
                 }}
                 onClick={() => {
                   dispatch(
-                    composeActions.updateAnswerState({
+                    compositionActions.updateAnswerState({
                       index,
                       verifier: answer.verifier,
                     })
@@ -89,7 +92,7 @@ const Composition: FC<Props> = ({ composition, index }) => {
                           : null,
                       borderRadius:
                         answer.verifier === 'F'
-                          ? theme.spacing(0, 0, 1.5, 0)
+                          ? theme.spacing(0, 0, 2, 0)
                           : null,
                     }}
                   >
@@ -127,11 +130,11 @@ const Composition: FC<Props> = ({ composition, index }) => {
           ))}
         </Grid>
       </Box>
-      <Box my={1.5}>
+      <Box my={2}>
         <Divider />
       </Box>
     </Box>
   )
 }
 
-export default Composition
+export default CompositionEntry

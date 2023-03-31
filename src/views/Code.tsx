@@ -12,27 +12,28 @@ import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
-import { deduceActions } from 'store/slices/deduceSlice'
+import { codeActions } from 'store/slices/codeSlice'
 
-const Deduce: FC = () => {
+const Code: FC = () => {
   const dispatch = useAppDispatch()
-  const deduce = useAppSelector(state => state.deduce)
+  const code = useAppSelector(state => state.code)
 
   return (
-    <Paper sx={{ py: 1.5, width: 320 }}>
-      <Box mx={1.5}>
-        <Box mb={1.5}>
+    <Paper sx={{ py: 2, width: 320 }}>
+      <Box mx={2}>
+        <Box mb={2}>
           <Button
             fullWidth
             color="secondary"
             onClick={() => {
-              dispatch(deduceActions.resetDeduce())
+              dispatch(codeActions.resetCode())
             }}
+            size="large"
           >
             <Clear />
           </Button>
         </Box>
-        <Box mb={1.5}>
+        <Box mb={2}>
           <Divider />
         </Box>
       </Box>
@@ -58,7 +59,7 @@ const Deduce: FC = () => {
                   })}
                   onClick={() => {
                     dispatch(
-                      deduceActions.toggleDeduction({
+                      codeActions.toggleDigit({
                         shape,
                         digit,
                       })
@@ -72,13 +73,11 @@ const Deduce: FC = () => {
                     left={4}
                     sx={theme => ({ color: theme.palette.text.primary })}
                   >
-                    {deduce.find(
-                      deduction =>
-                        deduction.shape === shape && deduction.digit === digit
+                    {code.find(
+                      entry => entry.shape === shape && entry.digit === digit
                     )?.state === 'correct' && <Correct fontSize="large" />}
-                    {deduce.find(
-                      deduction =>
-                        deduction.shape === shape && deduction.digit === digit
+                    {code.find(
+                      entry => entry.shape === shape && entry.digit === digit
                     )?.state === 'incorrect' && (
                       <Incorrect
                         fontSize="large"
@@ -96,4 +95,4 @@ const Deduce: FC = () => {
   )
 }
 
-export default Deduce
+export default Code

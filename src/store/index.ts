@@ -1,14 +1,14 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit'
-import compose from './slices/composeSlice'
-import deduce from './slices/deduceSlice'
+import code from './slices/codeSlice'
+import composition from './slices/compositionSlice'
 import register from './slices/registerSlice'
 import settings from './slices/settingsSlice'
 import { loadState, saveState } from './storage'
 
 const preloadedState = loadState()
 const reducer = {
-  compose,
-  deduce,
+  code,
+  composition,
   register,
   settings,
 }
