@@ -1,6 +1,8 @@
+import GitHubIcon from '@mui/icons-material/GitHub'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
 import { ThemeProvider } from '@mui/material/styles'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC } from 'react'
@@ -15,7 +17,13 @@ const Root: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box textAlign="center" position="relative" width={320} margin="auto">
+      <Box
+        textAlign="center"
+        position="relative"
+        width={320}
+        margin="auto"
+        mb={5}
+      >
         <img
           src={process.env.PUBLIC_URL + 'logo.png'}
           alt="logo"
@@ -24,7 +32,7 @@ const Root: FC = () => {
         <Box
           color={theme.palette.primary.contrastText}
           position="absolute"
-          bottom={theme.spacing(5)}
+          bottom={theme.spacing(-1)}
           left="50%"
           sx={{
             background: theme.palette.common.white,
@@ -32,6 +40,12 @@ const Root: FC = () => {
           }}
         >
           <h3 style={{ margin: 0 }}>Interactive Sheet</h3>
+          <IconButton
+            href="https://github.com/accuzyle/turing-machine-interactive-sheet"
+            target="_blank"
+          >
+            <GitHubIcon />
+          </IconButton>
         </Box>
       </Box>
       <Register />
