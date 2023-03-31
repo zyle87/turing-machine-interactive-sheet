@@ -1,5 +1,5 @@
 import Add from '@mui/icons-material/AddTaskRounded'
-import Clear from '@mui/icons-material/LayersClearRounded'
+import Clear from '@mui/icons-material/RestartAltRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'

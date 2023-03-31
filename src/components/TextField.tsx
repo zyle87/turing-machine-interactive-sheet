@@ -41,7 +41,6 @@ const TextField: FC<Props> = props => {
         className="text-field"
         type={props.type}
         min={1}
-        defaultValue={''}
         max={5}
         value={props.value === null ? '' : props.value}
         onChange={event => {

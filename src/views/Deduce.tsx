@@ -1,4 +1,6 @@
+import Clear from '@mui/icons-material/RestartAltRounded'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
@@ -9,7 +11,17 @@ import { FC } from 'react'
 
 const Hypothesis: FC = () => {
   return (
-    <Paper sx={{ mb: 1 }}>
+    <Paper sx={{ py: 1.5 }}>
+      <Box mx={1.5}>
+        <Box mb={1.5}>
+          <Button fullWidth color="secondary">
+            <Clear />
+          </Button>
+        </Box>
+        <Box mb={1.5}>
+          <Divider />
+        </Box>
+      </Box>
       <Grid container>
         {['triangle', 'square', 'circle'].map(shape => (
           <Grid
@@ -18,7 +30,13 @@ const Hypothesis: FC = () => {
             xs={4}
             sx={{ textAlign: 'center', display: 'flex' }}
           >
-            <Box width={1} mt={2}>
+            <Box
+              width={1}
+              mb={1}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
               <ShapeIcon shape={shape as 'triangle' | 'square' | 'circle'} />
             </Box>
             {shape !== 'circle' && <Divider orientation="vertical" />}
@@ -34,7 +52,7 @@ const Hypothesis: FC = () => {
               xs={4}
               sx={{ textAlign: 'center', display: 'flex' }}
             >
-              <Box width={1} mb={num === 1 ? num : undefined}>
+              <Box width={1}>
                 <IconButton
                   color="primary"
                   sx={theme => ({
