@@ -112,7 +112,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                       <Box
                         position="absolute"
                         top={-2}
-                        left={4}
+                        left={3}
                         sx={{ color: theme.palette.text.primary }}
                       >
                         {answer.state === 'correct' && (
