@@ -1,4 +1,6 @@
 import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Clear from '@mui/icons-material/CloseRounded'
 import { useTheme } from '@mui/material/styles'
 import { FC, ReactNode } from 'react'
 
@@ -9,6 +11,8 @@ type Props = {
   customRadius?: string
   value?: Nullable<number | string>
   onChange?: (value: string) => void
+  withReset?: boolean
+  onReset?: () => void
 }
 
 const TextField: FC<Props> = props => {
@@ -70,6 +74,21 @@ const TextField: FC<Props> = props => {
           top={0}
         >
           {props.iconRender}
+        </Box>
+      )}
+      {props.value && props.withReset && (
+        <Box
+          alignItems="center"
+          display="flex"
+          height={48}
+          right={4}
+          ml={1}
+          position="absolute"
+          top={0}
+        >
+          <IconButton color="primary" onClick={props.onReset}>
+            <Clear />
+          </IconButton>
         </Box>
       )}
     </Box>

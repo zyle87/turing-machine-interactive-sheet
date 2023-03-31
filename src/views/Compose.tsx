@@ -1,5 +1,5 @@
 import Add from '@mui/icons-material/AddTaskRounded'
-import Clear from '@mui/icons-material/RestartAltRounded'
+import Clear from '@mui/icons-material/LayersClearRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -15,7 +15,7 @@ const Compose: FC = () => {
   const dispatch = useAppDispatch()
 
   return (
-    <Paper component="section" sx={{ mb: 2 }}>
+    <Paper component="section" sx={{ width: 320 }}>
       <Box p={1.5}>
         <Button
           fullWidth

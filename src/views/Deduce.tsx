@@ -1,6 +1,6 @@
 import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
+import Clear from '@mui/icons-material/KeyOffRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
-import Clear from '@mui/icons-material/RestartAltRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -19,7 +19,7 @@ const Deduce: FC = () => {
   const deduce = useAppSelector(state => state.deduce)
 
   return (
-    <Paper sx={{ py: 1.5 }}>
+    <Paper sx={{ py: 1.5, width: 320 }}>
       <Box mx={1.5}>
         <Box mb={1.5}>
           <Button
