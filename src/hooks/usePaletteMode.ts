@@ -18,7 +18,12 @@ export const usePaletteMode = () => {
       createTheme({
         ...customTheme,
         palette: {
-          ...customTheme.palette,
+          primary: {
+            main: '#35b663',
+          },
+          secondary: {
+            main: '#ff1744',
+          },
           mode: settings.paletteMode,
         },
       }),
