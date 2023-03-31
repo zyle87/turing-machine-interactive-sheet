@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type codeState = {
+export type CodeState = {
   shape: Shape
   digit: Digit
   state: 'correct' | 'incorrect'
 }[]
 
-const initialState: codeState = []
+const initialState: CodeState = []
 
 export const codeSlice = createSlice({
   name: 'code',

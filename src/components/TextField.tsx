@@ -1,6 +1,6 @@
+import Clear from '@mui/icons-material/CloseRounded'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import Clear from '@mui/icons-material/CloseRounded'
 import { useTheme } from '@mui/material/styles'
 import { FC, ReactNode } from 'react'
 
@@ -13,6 +13,7 @@ type Props = {
   onChange?: (value: string) => void
   withReset?: boolean
   onReset?: () => void
+  customFontSize?: string
 }
 
 const TextField: FC<Props> = props => {
@@ -59,7 +60,7 @@ const TextField: FC<Props> = props => {
           height: 48,
           paddingLeft: props.iconRender ? theme.spacing(5) : undefined,
           textAlign: props.iconRender ? undefined : 'center',
-          fontSize: theme.spacing(3),
+          fontSize: props.customFontSize || theme.spacing(3),
           width: '100%',
         }}
       />

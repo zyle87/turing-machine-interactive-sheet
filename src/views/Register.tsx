@@ -12,7 +12,7 @@ const Register: FC = () => {
   const { name, hash } = useAppSelector(state => state.register)
 
   return (
-    <Box component="section" mb={2} width={320}>
+    <Box component="section" width={320} margin="0 auto 16px">
       <TextField
         iconRender={<PersonIcon />}
         withStackRadius

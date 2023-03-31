@@ -4,8 +4,9 @@ import Grid from '@mui/material/Grid'
 import { ThemeProvider } from '@mui/material/styles'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC } from 'react'
-import Composition from './Composition'
 import Code from './Code'
+import Composition from './Composition'
+import Deduction from './Deduction'
 import Register from './Register'
 
 const Root: FC = () => {
@@ -33,13 +34,16 @@ const Root: FC = () => {
           <h3 style={{ margin: 0 }}>Interactive Sheet</h3>
         </Box>
       </Box>
+      <Register />
       <Grid container justifyContent="center" spacing={2}>
         <Grid item>
-          <Register />
           <Code />
         </Grid>
         <Grid item>
           <Composition />
+        </Grid>
+        <Grid item>
+          <Deduction />
         </Grid>
       </Grid>
     </ThemeProvider>
