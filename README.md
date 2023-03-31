@@ -6,4 +6,6 @@
 
 ⚙️ [Turing Machine Interactive Sheet](https://turingmachine-is.netlify.app/) is a web application that allows you to play [Turing Machine](https://www.turingmachine.info/) boardgame w/o the need of a physical paper.
 
-As it is a [PWA](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop), you can install it on your device and use it offline.
+It currently does not communicate with any kind of backend. All user data are saved locally on you device in your browser instance of local storage.
+
+This way, you can [install it](https://support.google.com/chrome/answer/9658361?hl=en&co=GENIE.Platform%3DDesktop) on your device and use it offline.

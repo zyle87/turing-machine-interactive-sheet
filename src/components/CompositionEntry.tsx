@@ -50,7 +50,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
               iconRender={
                 <ShapeIcon
                   shape={proposal.shape as 'triangle' | 'square' | 'circle'}
-                  size={16}
+                  sizeMultiplier={0.5}
                 />
               }
               type="number"

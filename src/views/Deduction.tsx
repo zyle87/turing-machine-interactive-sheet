@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
+import MUITextField from '@mui/material/TextField'
 import { alpha, useTheme } from '@mui/material/styles'
 import SingleCharLabel from 'components/SingleCharLabel'
 import TextField from 'components/TextField'
@@ -34,24 +35,27 @@ const Deduction: FC = () => {
       </Box>
       {(['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(verifier => (
         <Box key={verifier} position="relative">
-          <Box position="absolute" left={theme.spacing(1)}>
-            <SingleCharLabel>{verifier}</SingleCharLabel>
-          </Box>
-          <textarea
-            style={{
-              ...theme.typography.body1,
-              color: theme.palette.text.primary,
-              background: alpha(theme.palette.primary.main, 0.1),
-              borderRadius: theme.shape.borderRadius,
-              borderBottomRightRadius: 0,
-              borderBottomLeftRadius: 0,
+          <MUITextField
+            multiline
+            InputProps={{
+              startAdornment: (
+                <Box mr={1.5}>
+                  <SingleCharLabel>{verifier}</SingleCharLabel>
+                </Box>
+              ),
+              sx: {
+                backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                borderRadius: theme.spacing(2, 2, 0, 0),
+                fontSize: theme.spacing(2.5),
+                padding: theme.spacing(1.5),
+                fieldset: {
+                  border: 'none',
+                },
+              },
+            }}
+            sx={{
               border: 'none',
-              display: 'block',
-              minWidth: '100%',
-              maxWidth: '100%',
-              minHeight: theme.spacing(12),
-              padding: theme.spacing(5, 1, 1),
-              fontSize: theme.spacing(2.5),
+              width: '100%',
             }}
             onChange={event => {
               dispatch(
