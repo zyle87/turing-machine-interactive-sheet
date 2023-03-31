@@ -7,7 +7,8 @@ type Props = {
   withStackRadius?: boolean
   type?: 'text' | 'number' | 'password'
   customRadius?: string
-  value?: number | string
+  value?: Nullable<number | string>
+  onChange?: (value: string) => void
 }
 
 const TextField: FC<Props> = props => {
@@ -40,8 +41,12 @@ const TextField: FC<Props> = props => {
         className="text-field"
         type={props.type}
         min={1}
+        defaultValue={''}
         max={5}
-        value={props.value}
+        value={props.value === null ? '' : props.value}
+        onChange={event => {
+          props.onChange && props.onChange(event.target.value)
+        }}
         style={{
           ...theme.typography.body1,
           color: theme.palette.text.primary,

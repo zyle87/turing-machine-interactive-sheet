@@ -35,6 +35,15 @@ const Composition: FC<Props> = ({ composition, index }) => {
                   : undefined
               }
               value={proposal.digit}
+              onChange={value => {
+                dispatch(
+                  composeActions.updateProposalDigit({
+                    index,
+                    shape: proposal.shape,
+                    digit: value ? (Number(value) as Digit) : null,
+                  })
+                )
+              }}
               iconRender={
                 <ShapeIcon
                   shape={proposal.shape as 'triangle' | 'square' | 'circle'}

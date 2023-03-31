@@ -7,7 +7,7 @@ type Answer = {
 
 type Proposal = {
   shape: Shape
-  digit: Digit
+  digit: Nullable<Digit>
 }
 
 export type ComposeState = {
@@ -19,7 +19,7 @@ const initialState: ComposeState = [
   {
     proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
       shape,
-      digit: 1,
+      digit: null,
     })),
     answers: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(verifier => ({
       verifier,
@@ -32,6 +32,39 @@ export const composeSlice = createSlice({
   name: 'compose',
   initialState,
   reducers: {
+    resetCompose: () => initialState,
+    addComposition: state => {
+      state.push({
+        proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
+          shape,
+          digit: null,
+        })),
+        answers: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(
+          verifier => ({
+            verifier,
+            state: 'unknown',
+          })
+        ),
+      })
+    },
+    updateProposalDigit: (
+      state,
+      action: PayloadAction<{
+        index: number
+        shape: Shape
+        digit: Nullable<Digit>
+      }>
+    ) => {
+      const { index, shape, digit } = action.payload
+      const composition = state[index]
+      const proposal = composition.proposals.find(
+        proposal => proposal.shape === shape
+      )!
+
+      proposal.digit = digit
+
+      state[index] = composition
+    },
     updateAnswerState: (
       state,
       action: PayloadAction<{ index: number; verifier: Verifier }>
@@ -40,9 +73,9 @@ export const composeSlice = createSlice({
       const composition = state[index]
       const answer = composition.answers.find(
         answer => answer.verifier === verifier
-      )
+      )!
 
-      switch (answer?.state) {
+      switch (answer.state) {
         case 'unknown':
           answer.state = true
           break
