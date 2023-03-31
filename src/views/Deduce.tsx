@@ -1,4 +1,4 @@
-import Incorrect from '@mui/icons-material/CloseRounded'
+import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Clear from '@mui/icons-material/RestartAltRounded'
 import Box from '@mui/material/Box'
@@ -68,7 +68,7 @@ const Deduce: FC = () => {
                   <SingleCharLabel>{digit}</SingleCharLabel>
                   <Box
                     position="absolute"
-                    top={-4}
+                    top={4}
                     left={4}
                     sx={theme => ({ color: theme.palette.text.primary })}
                   >
@@ -79,7 +79,12 @@ const Deduce: FC = () => {
                     {deduce.find(
                       deduction =>
                         deduction.shape === shape && deduction.digit === digit
-                    )?.state === 'incorrect' && <Incorrect fontSize="large" />}
+                    )?.state === 'incorrect' && (
+                      <Incorrect
+                        fontSize="large"
+                        sx={{ transform: 'rotate(-45deg)' }}
+                      />
+                    )}
                   </Box>
                 </IconButton>
               </Box>

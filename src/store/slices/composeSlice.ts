@@ -77,12 +77,12 @@ export const composeSlice = createSlice({
 
       switch (answer.state) {
         case 'unknown':
-          answer.state = 'correct'
-          break
-        case 'correct':
           answer.state = 'incorrect'
           break
         case 'incorrect':
+          answer.state = 'correct'
+          break
+        case 'correct':
           answer.state = 'unknown'
           break
       }

@@ -25,15 +25,15 @@ export const deduceSlice = createSlice({
 
       if (deductionIndex >= 0) {
         switch (state[deductionIndex].state) {
-          case 'correct':
-            state[deductionIndex].state = 'incorrect'
-            break
           case 'incorrect':
+            state[deductionIndex].state = 'correct'
+            break
+          case 'correct':
             state.splice(deductionIndex, 1)
             break
         }
       } else {
-        state.push({ shape, digit, state: 'correct' })
+        state.push({ shape, digit, state: 'incorrect' })
       }
     },
   },
