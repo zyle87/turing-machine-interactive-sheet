@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
-import { useTheme } from '@mui/material/styles'
+import { useTheme, alpha } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC } from 'react'
 import {
@@ -84,17 +84,17 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
               >
                 <Box width={1}>
                   <Box
-                    sx={{
+                    sx={theme => ({
                       textAlign: 'center',
                       background:
                         answer.verifier === 'E' || answer.verifier === 'F'
-                          ? '#e9f8f0'
+                          ? alpha(theme.palette.primary.main, 0.1)
                           : null,
                       borderRadius:
                         answer.verifier === 'F'
                           ? theme.spacing(0, 0, 2, 0)
                           : null,
-                    }}
+                    })}
                   >
                     <SingleCharLabel>{answer.verifier}</SingleCharLabel>
                     <Box py={1} position="relative">

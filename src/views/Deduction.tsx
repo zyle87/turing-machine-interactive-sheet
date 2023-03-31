@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
-import { useTheme } from '@mui/material/styles'
+import { alpha, useTheme } from '@mui/material/styles'
 import SingleCharLabel from 'components/SingleCharLabel'
 import TextField from 'components/TextField'
 import { useAppDispatch } from 'hooks/useAppDispatch'
@@ -41,7 +41,7 @@ const Deduction: FC = () => {
             style={{
               ...theme.typography.body1,
               color: theme.palette.text.primary,
-              background: '#e9f8f0',
+              background: alpha(theme.palette.primary.main, 0.1),
               borderRadius: theme.shape.borderRadius,
               borderBottomRightRadius: 0,
               borderBottomLeftRadius: 0,
