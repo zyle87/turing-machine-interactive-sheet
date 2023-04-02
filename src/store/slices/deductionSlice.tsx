@@ -16,47 +16,39 @@ export const deductionSlice = createSlice({
   reducers: {
     clearDeduction: () => initialState,
     encodeDeduction: state => {
-      state.map(deduction => {
-        deduction.ideas = deduction.ideas.replaceAll(
-          ':tr:',
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="triangle" sizeMultiplier={0.5} />
+      state.forEach(deduction => {
+        ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
+          deduction.ideas = deduction.ideas.replaceAll(
+            `:${shape[0]}${shape[1]}:`,
+            ReactDOMServer.renderToString(
+              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+            )
           )
-        )
-        deduction.ideas = deduction.ideas.replaceAll(
-          ':sq:',
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="square" sizeMultiplier={0.5} />
+          deduction.result = deduction.result.replaceAll(
+            `:${shape[0]}${shape[1]}:`,
+            ReactDOMServer.renderToString(
+              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+            )
           )
-        )
-        deduction.ideas = deduction.ideas.replaceAll(
-          ':ci:',
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="circle" sizeMultiplier={0.5} />
-          )
-        )
+        })
       })
     },
     decodeDeduction: state => {
-      state.map(deduction => {
-        deduction.ideas = deduction.ideas.replaceAll(
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="triangle" sizeMultiplier={0.5} />
-          ),
-          ':tr:'
-        )
-        deduction.ideas = deduction.ideas.replaceAll(
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="square" sizeMultiplier={0.5} />
-          ),
-          ':sq:'
-        )
-        deduction.ideas = deduction.ideas.replaceAll(
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape="circle" sizeMultiplier={0.5} />
-          ),
-          ':ci:'
-        )
+      state.forEach(deduction => {
+        ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
+          deduction.ideas = deduction.ideas.replaceAll(
+            ReactDOMServer.renderToString(
+              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+            ),
+            `:${shape[0]}${shape[1]}:`
+          )
+          deduction.result = deduction.result.replaceAll(
+            ReactDOMServer.renderToString(
+              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+            ),
+            `:${shape[0]}${shape[1]}:`
+          )
+        })
       })
     },
     updateIdeas: (
