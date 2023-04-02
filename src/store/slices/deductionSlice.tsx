@@ -40,14 +40,15 @@ export const deductionSlice = createSlice({
       const { verifier, type } = action.payload
       const index = state.findIndex(entry => entry.verifier === verifier)
 
-      ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-        state[index][type] = state[index][type].replaceAll(
-          ReactDOMServer.renderToString(
-            <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-          ),
-          `:${shape[0]}${shape[1]}:`
-        )
-      })
+      state[index] &&
+        (['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
+          state[index][type] = state[index][type].replaceAll(
+            ReactDOMServer.renderToString(
+              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+            ),
+            `:${shape[0]}${shape[1]}:`
+          )
+        })
     },
     updateIdeas: (
       state,

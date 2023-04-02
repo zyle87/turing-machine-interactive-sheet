@@ -10,7 +10,7 @@ import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import ContentEditable from 'react-contenteditable'
 import { useMount } from 'react-use'
 import { deductionActions } from 'store/slices/deductionSlice'
@@ -19,6 +19,7 @@ const Deduction: FC = () => {
   const dispatch = useAppDispatch()
   const deduction = useAppSelector(state => state.deduction)
   const theme = useTheme()
+  const [currentVerifier, setCurrentVerifier] = useState('')
 
   useMount(() => {
     dispatch(deductionActions.encodeAllDeduction())
@@ -74,11 +75,13 @@ const Deduction: FC = () => {
                 ''
               }
               onFocus={_ => {
+                setCurrentVerifier(verifier)
                 dispatch(
                   deductionActions.decodeDeduction({ verifier, type: 'ideas' })
                 )
               }}
               onBlur={_ => {
+                setCurrentVerifier('')
                 dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
@@ -93,9 +96,12 @@ const Deduction: FC = () => {
             display="flex"
             justifyContent="space-between"
             px={2}
-            my={0.5}
+            my={currentVerifier === verifier ? 0.5 : 0.25}
+            height={currentVerifier === verifier ? theme.spacing(4) : 0}
             sx={{
               backgroundColor: alpha(theme.palette.primary.main, 0.05),
+              overflow: 'hidden',
+              transition: theme.transitions.create('height'),
             }}
           >
             {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
@@ -143,11 +149,13 @@ const Deduction: FC = () => {
                 ''
               }
               onFocus={_ => {
+                setCurrentVerifier(verifier)
                 dispatch(
                   deductionActions.decodeDeduction({ verifier, type: 'result' })
                 )
               }}
               onBlur={_ => {
+                setCurrentVerifier('')
                 dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
