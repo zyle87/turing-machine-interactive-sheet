@@ -4,19 +4,25 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
-import MUITextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
+import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
-import TextField from 'components/TextField'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
+import ContentEditable from 'react-contenteditable'
+import { useMount } from 'react-use'
 import { deductionActions } from 'store/slices/deductionSlice'
 
 const Deduction: FC = () => {
   const dispatch = useAppDispatch()
   const deduction = useAppSelector(state => state.deduction)
   const theme = useTheme()
+
+  useMount(() => {
+    dispatch(deductionActions.encodeDeduction())
+  })
 
   return (
     <Paper sx={{ width: 320, p: 2, mb: 2 }}>
@@ -34,47 +40,95 @@ const Deduction: FC = () => {
         <Divider />
       </Box>
       {(['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(verifier => (
-        <Box key={verifier} position="relative">
-          <MUITextField
-            multiline
-            InputProps={{
-              startAdornment: (
-                <Box mr={1.5}>
-                  <SingleCharLabel>{verifier}</SingleCharLabel>
-                </Box>
-              ),
-              sx: {
+        <Box key={verifier}>
+          <Box position="relative">
+            <Box
+              position="absolute"
+              top={theme.spacing(0.5)}
+              left={
+                deduction.find(entry => entry.verifier === verifier)?.ideas
+                  ? theme.spacing(32.5)
+                  : theme.spacing(1.5)
+              }
+              sx={{ transition: theme.transitions.create('left') }}
+            >
+              <SingleCharLabel>{verifier}</SingleCharLabel>
+            </Box>
+            <ContentEditable
+              onChange={event => {
+                const value =
+                  event.target.value === '<div><br></div>' ||
+                  event.target.value === '<br>'
+                    ? ''
+                    : event.target.value
+
+                dispatch(
+                  deductionActions.updateIdeas({
+                    verifier,
+                    ideas: value,
+                  })
+                )
+              }}
+              html={
+                deduction.find(entry => entry.verifier === verifier)?.ideas ||
+                ''
+              }
+              onFocus={_ => {
+                dispatch(deductionActions.decodeDeduction())
+              }}
+              onBlur={_ => {
+                dispatch(deductionActions.encodeDeduction())
+              }}
+              style={{
                 backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                padding: theme.spacing(1),
+                paddingRight: theme.spacing(4),
                 borderRadius: theme.spacing(2, 2, 0, 0),
-                fontSize: theme.spacing(2.5),
-                padding: theme.spacing(1.5),
-                fieldset: {
-                  border: 'none',
-                },
-              },
-            }}
+              }}
+            />
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            px={2}
+            my={0.5}
             sx={{
-              border: 'none',
-              width: '100%',
+              backgroundColor: alpha(theme.palette.primary.main, 0.05),
             }}
-            onChange={event => {
-              dispatch(
-                deductionActions.updateIdeas({
-                  verifier,
-                  ideas: event.target.value,
-                })
-              )
-            }}
-            value={
-              deduction.find(entry => entry.verifier === verifier)?.ideas ?? ''
-            }
-          />
-          <Box mt={0.5}>
-            <TextField
-              iconRender={<Check fontSize="small" color="primary" />}
-              customRadius={theme.spacing(0, 0, 2, 2)}
-              customFontSize={theme.spacing(2.5)}
-              onChange={value => {
+          >
+            {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
+              <Box key={shape} display="flex" alignItems="center">
+                <Box mr={1}>
+                  <Typography>
+                    :{shape[0]}
+                    {shape[1]}: =
+                  </Typography>
+                </Box>
+                <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+              </Box>
+            ))}
+          </Box>
+          <Box position="relative">
+            <Box
+              position="absolute"
+              top={theme.spacing(1)}
+              left={
+                deduction.find(entry => entry.verifier === verifier)?.result
+                  ? theme.spacing(31.5)
+                  : theme.spacing(1)
+              }
+              sx={{ transition: theme.transitions.create('left') }}
+            >
+              <Check color="primary" />
+            </Box>
+            <ContentEditable
+              onChange={event => {
+                const value =
+                  event.target.value === '<div><br></div>' ||
+                  event.target.value === '<br>'
+                    ? ''
+                    : event.target.value
+
                 dispatch(
                   deductionActions.updateResult({
                     verifier,
@@ -82,10 +136,22 @@ const Deduction: FC = () => {
                   })
                 )
               }}
-              value={
-                deduction.find(entry => entry.verifier === verifier)?.result ??
+              html={
+                deduction.find(entry => entry.verifier === verifier)?.result ||
                 ''
               }
+              onFocus={_ => {
+                dispatch(deductionActions.decodeDeduction())
+              }}
+              onBlur={_ => {
+                dispatch(deductionActions.encodeDeduction())
+              }}
+              style={{
+                backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                padding: theme.spacing(1),
+                borderRadius: theme.spacing(0, 0, 2, 2),
+                paddingRight: theme.spacing(5),
+              }}
             />
           </Box>
           {verifier !== 'F' && (
