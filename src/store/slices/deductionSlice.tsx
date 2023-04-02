@@ -2,11 +2,15 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import ShapeIcon from 'components/ShapeIcon'
 import ReactDOMServer from 'react-dom/server'
 
-export type DeductionState = {
+type Deduction = {
   verifier: Verifier
   ideas: string
   result: string
-}[]
+}
+
+type DeductionType = keyof Omit<Deduction, 'verifier'>
+
+type DeductionState = Deduction[]
 
 const initialState: DeductionState = []
 
@@ -18,30 +22,52 @@ export const deductionSlice = createSlice({
     encodeAllDeduction: state => {
       state.forEach(deduction => {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-          deduction.ideas = deduction.ideas.replaceAll(
-            `:${shape[0]}${shape[1]}:`,
-            ReactDOMServer.renderToString(
-              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+          ;(['ideas', 'result'] as DeductionType[]).map(type => {
+            deduction.ideas = deduction.ideas?.replaceAll(
+              `:${shape[0]}${shape[1]}:`,
+              ReactDOMServer.renderToString(
+                <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+              )
             )
-          )
-          deduction.result = deduction.result.replaceAll(
-            `:${shape[0]}${shape[1]}:`,
-            ReactDOMServer.renderToString(
-              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-            )
-          )
+
+            deduction.result =
+              deduction.result?.replaceAll(
+                `:${shape[0]}${shape[1]}:`,
+                ReactDOMServer.renderToString(
+                  <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+                )
+              ) || deduction.result
+
+            if (deduction[type]) {
+              let found = 0
+              let newStr = ''
+
+              for (let i = 0; i < deduction[type].length; i++) {
+                newStr +=
+                  deduction[type][i] === '~'
+                    ? found % 2 === 0
+                      ? '<s>'
+                      : '</s>'
+                    : deduction[type][i]
+
+                deduction[type][i] === '~' && found++
+              }
+
+              deduction[type] = newStr
+            }
+          })
         })
       })
     },
     decodeDeduction: (
       state,
-      action: PayloadAction<{ verifier: Verifier; type: 'ideas' | 'result' }>
+      action: PayloadAction<{ verifier: Verifier; type: DeductionType }>
     ) => {
       const { verifier, type } = action.payload
       const index = state.findIndex(entry => entry.verifier === verifier)
 
-      state[index] &&
-        (['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
+      if (state[index]) {
+        ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
           state[index][type] = state[index][type].replaceAll(
             ReactDOMServer.renderToString(
               <ShapeIcon shape={shape} sizeMultiplier={0.5} />
@@ -49,6 +75,9 @@ export const deductionSlice = createSlice({
             `:${shape[0]}${shape[1]}:`
           )
         })
+        state[index][type] = state[index][type].replaceAll('<s>', `~`)
+        state[index][type] = state[index][type].replaceAll('</s>', `~`)
+      }
     },
     updateIdeas: (
       state,
