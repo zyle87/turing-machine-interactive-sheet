@@ -1,6 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import ShapeIcon from 'components/ShapeIcon'
-import ReactDOMServer from 'react-dom/server'
 
 type Deduction = {
   verifier: Verifier
@@ -14,6 +12,12 @@ type DeductionState = Deduction[]
 
 const initialState: DeductionState = []
 
+export const shapeMarkup = {
+  triangle: `<span style="font-family: Shapes;">i</span>`,
+  square: `<span style="font-family: Shapes;">j</span>`,
+  circle: `<span style="font-family: Shapes;">g</span>`,
+}
+
 export const deductionSlice = createSlice({
   name: 'deduction',
   initialState,
@@ -22,20 +26,16 @@ export const deductionSlice = createSlice({
     encodeAllDeduction: state => {
       state.forEach(deduction => {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-          ;(['ideas', 'result'] as DeductionType[]).map(type => {
+          ;(['ideas', 'result'] as DeductionType[]).forEach(type => {
             deduction.ideas = deduction.ideas?.replaceAll(
               `:${shape[0]}${shape[1]}:`,
-              ReactDOMServer.renderToString(
-                <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-              )
+              shapeMarkup[shape]
             )
 
             deduction.result =
               deduction.result?.replaceAll(
                 `:${shape[0]}${shape[1]}:`,
-                ReactDOMServer.renderToString(
-                  <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-                )
+                shapeMarkup[shape]
               ) || deduction.result
 
             if (deduction[type]) {
@@ -46,8 +46,8 @@ export const deductionSlice = createSlice({
                 newStr +=
                   deduction[type][i] === '~'
                     ? found % 2 === 0
-                      ? '<s>'
-                      : '</s>'
+                      ? '<span style="text-decoration: underline;text-underline-offset: -7px;text-decoration-skip-ink: none;">'
+                      : '</span>'
                     : deduction[type][i]
 
                 deduction[type][i] === '~' && found++
@@ -69,14 +69,15 @@ export const deductionSlice = createSlice({
       if (state[index]) {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
           state[index][type] = state[index][type].replaceAll(
-            ReactDOMServer.renderToString(
-              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-            ),
+            shapeMarkup[shape],
             `:${shape[0]}${shape[1]}:`
           )
         })
-        state[index][type] = state[index][type].replaceAll('<s>', `~`)
-        state[index][type] = state[index][type].replaceAll('</s>', `~`)
+        state[index][type] = state[index][type].replaceAll(
+          '<span style="text-decoration: underline;text-underline-offset: -7px;text-decoration-skip-ink: none;">',
+          `~`
+        )
+        state[index][type] = state[index][type].replaceAll('</span>', `~`)
       }
     },
     updateIdeas: (

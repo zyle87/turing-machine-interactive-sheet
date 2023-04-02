@@ -6,7 +6,6 @@ import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
-import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
@@ -108,9 +107,17 @@ const Deduction: FC = () => {
                     <Typography>
                       :{shape[0]}
                       {shape[1]}: =
+                      {shape === 'triangle' && (
+                        <span style={{ fontFamily: 'Shapes' }}> i</span>
+                      )}
+                      {shape === 'square' && (
+                        <span style={{ fontFamily: 'Shapes' }}> j</span>
+                      )}
+                      {shape === 'circle' && (
+                        <span style={{ fontFamily: 'Shapes' }}> g</span>
+                      )}
                     </Typography>
                   </Box>
-                  <ShapeIcon shape={shape} sizeMultiplier={0.5} />
                 </Box>
               ))}
             </Box>
