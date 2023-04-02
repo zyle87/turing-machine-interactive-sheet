@@ -21,7 +21,7 @@ const Deduction: FC = () => {
   const theme = useTheme()
 
   useMount(() => {
-    dispatch(deductionActions.encodeDeduction())
+    dispatch(deductionActions.encodeAllDeduction())
   })
 
   return (
@@ -74,10 +74,12 @@ const Deduction: FC = () => {
                 ''
               }
               onFocus={_ => {
-                dispatch(deductionActions.decodeDeduction())
+                dispatch(
+                  deductionActions.decodeDeduction({ verifier, type: 'ideas' })
+                )
               }}
               onBlur={_ => {
-                dispatch(deductionActions.encodeDeduction())
+                dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
                 backgroundColor: alpha(theme.palette.primary.main, 0.1),
@@ -141,10 +143,12 @@ const Deduction: FC = () => {
                 ''
               }
               onFocus={_ => {
-                dispatch(deductionActions.decodeDeduction())
+                dispatch(
+                  deductionActions.decodeDeduction({ verifier, type: 'result' })
+                )
               }}
               onBlur={_ => {
-                dispatch(deductionActions.encodeDeduction())
+                dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
                 backgroundColor: alpha(theme.palette.primary.main, 0.1),

@@ -15,7 +15,7 @@ export const deductionSlice = createSlice({
   initialState,
   reducers: {
     clearDeduction: () => initialState,
-    encodeDeduction: state => {
+    encodeAllDeduction: state => {
       state.forEach(deduction => {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
           deduction.ideas = deduction.ideas.replaceAll(
@@ -33,22 +33,20 @@ export const deductionSlice = createSlice({
         })
       })
     },
-    decodeDeduction: state => {
-      state.forEach(deduction => {
-        ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-          deduction.ideas = deduction.ideas.replaceAll(
-            ReactDOMServer.renderToString(
-              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-            ),
-            `:${shape[0]}${shape[1]}:`
-          )
-          deduction.result = deduction.result.replaceAll(
-            ReactDOMServer.renderToString(
-              <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-            ),
-            `:${shape[0]}${shape[1]}:`
-          )
-        })
+    decodeDeduction: (
+      state,
+      action: PayloadAction<{ verifier: Verifier; type: 'ideas' | 'result' }>
+    ) => {
+      const { verifier, type } = action.payload
+      const index = state.findIndex(entry => entry.verifier === verifier)
+
+      ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
+        state[index][type] = state[index][type].replaceAll(
+          ReactDOMServer.renderToString(
+            <ShapeIcon shape={shape} sizeMultiplier={0.5} />
+          ),
+          `:${shape[0]}${shape[1]}:`
+        )
       })
     },
     updateIdeas: (
