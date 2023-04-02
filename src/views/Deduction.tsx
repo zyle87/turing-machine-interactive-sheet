@@ -6,7 +6,6 @@ import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { alpha, useTheme } from '@mui/material/styles'
-import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
@@ -93,28 +92,40 @@ const Deduction: FC = () => {
             />
           </Box>
           <Box
-            display="flex"
-            justifyContent="space-between"
-            px={2}
             my={currentVerifier === verifier ? 0.5 : 0.25}
-            height={currentVerifier === verifier ? theme.spacing(4) : 0}
+            height={currentVerifier === verifier ? theme.spacing(7) : 0}
             sx={{
               backgroundColor: alpha(theme.palette.primary.main, 0.05),
               overflow: 'hidden',
               transition: theme.transitions.create('height'),
             }}
           >
-            {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
-              <Box key={shape} display="flex" alignItems="center">
-                <Box mr={1}>
-                  <Typography>
-                    :{shape[0]}
-                    {shape[1]}: =
-                  </Typography>
+            <Box display="flex" justifyContent="space-between" px={2}>
+              {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
+                <Box key={shape} display="flex" alignItems="center">
+                  <Box mr={1}>
+                    <Typography>
+                      :{shape[0]}
+                      {shape[1]}: =
+                      {shape === 'triangle' && (
+                        <span style={{ fontFamily: 'Shapes' }}> i</span>
+                      )}
+                      {shape === 'square' && (
+                        <span style={{ fontFamily: 'Shapes' }}> j</span>
+                      )}
+                      {shape === 'circle' && (
+                        <span style={{ fontFamily: 'Shapes' }}> g</span>
+                      )}
+                    </Typography>
+                  </Box>
                 </Box>
-                <ShapeIcon shape={shape} sizeMultiplier={0.5} />
-              </Box>
-            ))}
+              ))}
+            </Box>
+            <Box textAlign="center">
+              <Typography>
+                ~<span style={{ opacity: 0.2 }}> ... </span>~ = strikethrough
+              </Typography>
+            </Box>
           </Box>
           <Box position="relative">
             <Box
