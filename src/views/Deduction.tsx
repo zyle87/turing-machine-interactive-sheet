@@ -115,8 +115,8 @@ const Deduction: FC = () => {
                 <Box key={shape} display="flex" alignItems="center">
                   <Box mr={1}>
                     <Typography>
-                      :{shape[0]}
-                      {shape[1]}: =
+                      :{shape[0].toUpperCase()}
+                      {shape[1].toUpperCase()}: =
                       {shape === 'triangle' && (
                         <span style={{ fontFamily: 'Shapes' }}> i</span>
                       )}
