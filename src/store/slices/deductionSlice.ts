@@ -12,7 +12,7 @@ type DeductionState = Deduction[]
 
 const initialState: DeductionState = []
 
-export const shapeMarkup = {
+const shapeMarkup = {
   triangle: `<span style="font-family: Shapes;">i</span>`,
   square: `<span style="font-family: Shapes;">j</span>`,
   circle: `<span style="font-family: Shapes;">g</span>`,
@@ -27,30 +27,29 @@ export const deductionSlice = createSlice({
       state.forEach(deduction => {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
           ;(['ideas', 'result'] as DeductionType[]).forEach(type => {
-            deduction.ideas = deduction.ideas?.replaceAll(
+            deduction.ideas = deduction.ideas.replaceAll(
               `:${shape[0]}${shape[1]}:`,
               shapeMarkup[shape]
             )
 
-            deduction.result =
-              deduction.result?.replaceAll(
-                `:${shape[0]}${shape[1]}:`,
-                shapeMarkup[shape]
-              ) || deduction.result
+            deduction.result = deduction.result?.replaceAll(
+              `:${shape[0]}${shape[1]}:`,
+              shapeMarkup[shape]
+            )
 
             if (deduction[type]) {
-              let found = 0
+              let count = 0
               let newStr = ''
 
               for (let i = 0; i < deduction[type].length; i++) {
                 newStr +=
                   deduction[type][i] === '~'
-                    ? found % 2 === 0
+                    ? count % 2 === 0
                       ? '<span style="text-decoration: underline;text-underline-offset: -7px;text-decoration-skip-ink: none;">'
                       : '</span>'
                     : deduction[type][i]
 
-                deduction[type][i] === '~' && found++
+                deduction[type][i] === '~' && count++
               }
 
               deduction[type] = newStr
@@ -68,10 +67,8 @@ export const deductionSlice = createSlice({
 
       if (state[index]) {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-          state[index][type] = state[index][type].replaceAll(
-            shapeMarkup[shape],
-            `:${shape[0]}${shape[1]}:`
-          )
+          state[index][type] = state[index][type]
+            .replaceAll(shapeMarkup[shape], `:${shape[0]}${shape[1]}:`)
         })
         state[index][type] = state[index][type].replaceAll(
           '<span style="text-decoration: underline;text-underline-offset: -7px;text-decoration-skip-ink: none;">',

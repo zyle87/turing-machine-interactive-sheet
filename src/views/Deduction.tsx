@@ -9,7 +9,7 @@ import { alpha, useTheme } from '@mui/material/styles'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import ContentEditable from 'react-contenteditable'
 import { useMount } from 'react-use'
 import { deductionActions } from 'store/slices/deductionSlice'
@@ -23,6 +23,18 @@ const Deduction: FC = () => {
   useMount(() => {
     dispatch(deductionActions.encodeAllDeduction())
   })
+
+  const inputStyles = useMemo(
+    () => ({
+      backgroundColor: alpha(theme.palette.primary.main, 0.1),
+      padding: theme.spacing(1),
+      paddingRight: theme.spacing(5),
+      minHeight: theme.spacing(6),
+      textTransform: 'uppercase',
+      lineHeight: 1.7,
+    }),
+    [theme]
+  )
 
   return (
     <Paper sx={{ width: 320, p: 2, mb: 2 }}>
@@ -65,7 +77,7 @@ const Deduction: FC = () => {
                 dispatch(
                   deductionActions.updateIdeas({
                     verifier,
-                    ideas: value,
+                    ideas: value.toLowerCase(),
                   })
                 )
               }}
@@ -84,9 +96,7 @@ const Deduction: FC = () => {
                 dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
-                backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                padding: theme.spacing(1),
-                paddingRight: theme.spacing(4),
+                ...inputStyles,
                 borderRadius: theme.spacing(2, 2, 0, 0),
               }}
             />
@@ -151,7 +161,7 @@ const Deduction: FC = () => {
                 dispatch(
                   deductionActions.updateResult({
                     verifier,
-                    result: value,
+                    result: value.toLowerCase(),
                   })
                 )
               }}
@@ -170,10 +180,8 @@ const Deduction: FC = () => {
                 dispatch(deductionActions.encodeAllDeduction())
               }}
               style={{
-                backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                padding: theme.spacing(1),
+                ...inputStyles,
                 borderRadius: theme.spacing(0, 0, 2, 2),
-                paddingRight: theme.spacing(5),
               }}
             />
           </Box>
