@@ -8,6 +8,7 @@ type Props = {
   iconRender?: ReactNode
   withStackRadius?: boolean
   type?: 'text' | 'number' | 'password'
+  maxChars?: number
   customRadius?: string
   value?: Nullable<number | string>
   onChange?: (value: string) => void
@@ -47,6 +48,7 @@ const TextField: FC<Props> = props => {
         type={props.type}
         min={1}
         max={5}
+        maxLength={props.maxChars}
         value={props.value === null ? '' : props.value}
         onChange={event => {
           props.onChange && props.onChange(event.target.value)

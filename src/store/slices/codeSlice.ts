@@ -12,6 +12,7 @@ export const codeSlice = createSlice({
   name: 'code',
   initialState,
   reducers: {
+    load: (state, action: PayloadAction<CodeState>) => action.payload,
     resetCode: () => initialState,
     toggleDigit: (
       state,

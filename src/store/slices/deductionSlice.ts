@@ -8,7 +8,7 @@ type Deduction = {
 
 type DeductionType = keyof Omit<Deduction, 'verifier'>
 
-type DeductionState = Deduction[]
+export type DeductionState = Deduction[]
 
 const initialState: DeductionState = []
 
@@ -22,6 +22,7 @@ export const deductionSlice = createSlice({
   name: 'deduction',
   initialState,
   reducers: {
+    load: (state, action: PayloadAction<DeductionState>) => action.payload,
     clearDeduction: () => initialState,
     encodeAllDeduction: state => {
       state.forEach(deduction => {
@@ -67,8 +68,10 @@ export const deductionSlice = createSlice({
 
       if (state[index]) {
         ;(['triangle', 'square', 'circle'] as Shape[]).forEach(shape => {
-          state[index][type] = state[index][type]
-            .replaceAll(shapeMarkup[shape], `:${shape[0]}${shape[1]}:`)
+          state[index][type] = state[index][type].replaceAll(
+            shapeMarkup[shape],
+            `:${shape[0]}${shape[1]}:`
+          )
         })
         state[index][type] = state[index][type].replaceAll(
           '<span style="text-decoration: underline;text-underline-offset: -7px;text-decoration-skip-ink: none;">',

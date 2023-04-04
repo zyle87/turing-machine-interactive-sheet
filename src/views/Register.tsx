@@ -27,6 +27,7 @@ const Register: FC = () => {
         iconRender={<HashIcon />}
         withStackRadius
         value={hash}
+        maxChars={10}
         onChange={value =>
           dispatch(registerActions.updateHash(value.toUpperCase()))
         }

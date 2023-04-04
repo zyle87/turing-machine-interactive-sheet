@@ -32,6 +32,7 @@ export const compositionSlice = createSlice({
   name: 'composition',
   initialState,
   reducers: {
+    load: (state, action: PayloadAction<CompositionState>) => action.payload,
     resetComposition: () => initialState,
     addComposition: state => {
       state.push({

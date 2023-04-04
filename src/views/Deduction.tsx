@@ -18,6 +18,7 @@ const Deduction: FC = () => {
   const dispatch = useAppDispatch()
   const deduction = useAppSelector(state => state.deduction)
   const theme = useTheme()
+
   const [currentVerifier, setCurrentVerifier] = useState('')
 
   useMount(() => {

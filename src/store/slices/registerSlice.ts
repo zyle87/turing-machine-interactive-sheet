@@ -14,6 +14,7 @@ export const registerSlice = createSlice({
   name: 'register',
   initialState,
   reducers: {
+    load: (state, action: PayloadAction<RegisterState>) => action.payload,
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },

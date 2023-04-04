@@ -11,8 +11,8 @@ import { FC } from 'react'
 import { compositionActions } from 'store/slices/compositionSlice'
 
 const Composition: FC = () => {
-  const composition = useAppSelector(state => state.composition)
   const dispatch = useAppDispatch()
+  const composition = useAppSelector(state => state.composition)
 
   return (
     <Paper component="section" sx={{ width: 320 }}>
