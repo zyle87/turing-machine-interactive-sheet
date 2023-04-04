@@ -40,6 +40,7 @@ const Deduction: FC = () => {
   return (
     <Paper sx={{ width: 320, p: 2, mb: 2 }}>
       <Button
+        aria-label="clear"
         fullWidth
         color="secondary"
         size="large"

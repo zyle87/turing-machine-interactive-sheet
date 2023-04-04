@@ -63,6 +63,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
           {entry.answers.map(answer => (
             <Grid item xs={2} key={answer.verifier}>
               <Button
+                arial-label={answer.verifier}
                 sx={{
                   minWidth: '100%',
                   p: 0,

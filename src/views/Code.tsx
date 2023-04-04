@@ -23,6 +23,7 @@ const Code: FC = () => {
       <Box mx={2}>
         <Box mb={2}>
           <Button
+            aria-label="clear"
             fullWidth
             color="secondary"
             onClick={() => {
@@ -52,6 +53,7 @@ const Code: FC = () => {
             {([5, 4, 3, 2, 1] as Digit[]).map(digit => (
               <Box key={digit} width={1} position="relative">
                 <IconButton
+                  aria-label={`${shape} ${digit}`}
                   color="primary"
                   sx={theme => ({
                     height: theme.spacing(6),

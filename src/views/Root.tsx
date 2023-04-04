@@ -65,13 +65,17 @@ const Root: FC = () => {
           <h3 style={{ margin: 0 }}>Interactive Sheet</h3>
           <Box display="flex" justifyContent="center">
             <IconButton
+              aria-label="saves"
               onClick={() => {
                 setSaveDialog(!saveDialog)
               }}
             >
               <SaveIcon />
             </IconButton>
-            <IconButton onClick={togglePaletteMode}>
+            <IconButton
+              aria-label="toggle palette mode"
+              onClick={togglePaletteMode}
+            >
               {theme.palette.mode === 'light' ? (
                 <LightModeIcon />
               ) : (
@@ -79,6 +83,7 @@ const Root: FC = () => {
               )}
             </IconButton>
             <IconButton
+              aria-label="github"
               href="https://github.com/accuzyle/turing-machine-interactive-sheet"
               target="_blank"
             >
@@ -108,6 +113,7 @@ const Root: FC = () => {
         <List sx={{ width: 320 }}>
           <ListItem>
             <Button
+              aria-label="save"
               disabled={state.register.hash === ''}
               fullWidth
               onClick={() => {
@@ -132,6 +138,7 @@ const Root: FC = () => {
                 </Box>
                 <Box>
                   <IconButton
+                    aria-label="load"
                     color="primary"
                     onClick={() => {
                       dispatch(codeActions.load(save.code))
@@ -143,6 +150,7 @@ const Root: FC = () => {
                     <LoadIcon />
                   </IconButton>
                   <IconButton
+                    aria-label="delete"
                     color="secondary"
                     onClick={() => {
                       dispatch(savesActions.delete(index))
