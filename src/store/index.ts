@@ -3,6 +3,7 @@ import code from './slices/codeSlice'
 import composition from './slices/compositionSlice'
 import deduction from './slices/deductionSlice'
 import register from './slices/registerSlice'
+import saves from './slices/savesSlice'
 import settings from './slices/settingsSlice'
 import { loadState, saveState } from './storage'
 
@@ -12,6 +13,7 @@ const reducer = {
   composition,
   deduction,
   register,
+  saves,
   settings,
 }
 

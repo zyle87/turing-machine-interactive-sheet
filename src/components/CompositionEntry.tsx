@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
-import { useTheme, alpha } from '@mui/material/styles'
+import { alpha, useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC } from 'react'
 import {
@@ -63,6 +63,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
           {entry.answers.map(answer => (
             <Grid item xs={2} key={answer.verifier}>
               <Button
+                arial-label={answer.verifier}
                 sx={{
                   minWidth: '100%',
                   p: 0,
@@ -84,6 +85,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
               >
                 <Box width={1}>
                   <Box
+                    pt={1}
                     sx={theme => ({
                       textAlign: 'center',
                       background:
@@ -97,7 +99,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                     })}
                   >
                     <SingleCharLabel>{answer.verifier}</SingleCharLabel>
-                    <Box py={1} position="relative">
+                    <Box pt={1} pb={2} position="relative">
                       <Box
                         height={20}
                         margin="auto"

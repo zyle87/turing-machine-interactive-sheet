@@ -11,13 +11,14 @@ import { FC } from 'react'
 import { compositionActions } from 'store/slices/compositionSlice'
 
 const Composition: FC = () => {
-  const composition = useAppSelector(state => state.composition)
   const dispatch = useAppDispatch()
+  const composition = useAppSelector(state => state.composition)
 
   return (
     <Paper component="section" sx={{ width: 320 }}>
       <Box p={2}>
         <Button
+          aria-label="clear"
           fullWidth
           color="secondary"
           size="large"
@@ -38,6 +39,7 @@ const Composition: FC = () => {
       </Box>
       <Box p={2} pt={0}>
         <Button
+          aria-label="add"
           fullWidth
           size="large"
           onClick={() => {
