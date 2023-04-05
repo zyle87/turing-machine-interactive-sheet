@@ -1,5 +1,5 @@
-import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
 import Clear from '@mui/icons-material/HideSourceRounded'
+import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -21,10 +21,15 @@ const DigitCode: FC = () => {
   const theme = useTheme()
 
   return (
-    <Paper sx={{ py: 2, width: 320 }}>
+    <Paper
+      id="digit-code-section"
+      sx={{ py: 2, width: 320 }}
+      component="section"
+    >
       <Box mx={2}>
         <Box mb={2}>
           <Button
+            id="digit-code__clear-button"
             aria-label="clear"
             fullWidth
             color="secondary"
@@ -55,6 +60,7 @@ const DigitCode: FC = () => {
             {([5, 4, 3, 2, 1] as Digit[]).map(digit => (
               <Box key={digit} width={1} position="relative">
                 <IconButton
+                  id={`digit-code__${shape}-${digit}-button`}
                   aria-label={`${shape} ${digit}`}
                   color="primary"
                   sx={{

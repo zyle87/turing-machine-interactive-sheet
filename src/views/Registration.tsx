@@ -12,9 +12,14 @@ const Registration: FC = () => {
   const registration = useAppSelector(state => state.registration)
 
   return (
-    <Box id="registration" component="section" width={320} margin="0 auto 16px">
+    <Box
+      id="registration-section"
+      component="section"
+      width={320}
+      margin="0 auto 16px"
+    >
       <TextField
-        id="name"
+        id="registration__name"
         iconRender={<PersonIcon />}
         withStackRadius
         value={registration.name}
@@ -25,7 +30,7 @@ const Registration: FC = () => {
         onReset={() => dispatch(registrationActions.updateName(''))}
       />
       <TextField
-        id="hash"
+        id="registration__hash"
         iconRender={<HashIcon />}
         withStackRadius
         value={registration.hash}
