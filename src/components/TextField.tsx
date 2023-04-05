@@ -1,7 +1,7 @@
 import Clear from '@mui/icons-material/CloseRounded'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import { useTheme, alpha } from '@mui/material/styles'
+import { alpha, useTheme } from '@mui/material/styles'
 import { FC, ReactNode } from 'react'
 
 type Props = {
@@ -55,10 +55,10 @@ const TextField: FC<Props> = props => {
         }}
         style={{
           ...theme.typography.body1,
-          color: theme.palette.text.primary,
           background: alpha(theme.palette.primary.main, 0.1),
           border: 'none',
           borderRadius: props.customRadius,
+          color: theme.palette.text.primary,
           height: 48,
           paddingLeft: props.iconRender ? theme.spacing(5) : undefined,
           textAlign: props.iconRender ? undefined : 'center',
@@ -75,6 +75,7 @@ const TextField: FC<Props> = props => {
           ml={1}
           position="absolute"
           top={0}
+          sx={{ color: theme.palette.primary.main }}
         >
           {props.iconRender}
         </Box>

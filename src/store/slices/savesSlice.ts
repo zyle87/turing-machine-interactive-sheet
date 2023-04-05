@@ -9,6 +9,7 @@ type Save = {
   code: CodeState
   composition: CompositionState
   deduction: DeductionState
+  date: number
 }
 
 type SavesState = Save[]
@@ -20,13 +21,14 @@ export const savesSlice = createSlice({
   initialState,
   reducers: {
     save: (state, action: PayloadAction<Save>) => {
-      const { register, code, composition, deduction } = action.payload
+      const { register, code, composition, deduction, date } = action.payload
 
       state.push({
         code,
         composition,
         deduction,
         register,
+        date,
       })
     },
     delete: (state, action: PayloadAction<number>) => {

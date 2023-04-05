@@ -108,6 +108,7 @@ const Deduction: FC = () => {
             height={currentVerifier === verifier ? theme.spacing(7) : 0}
             sx={{
               backgroundColor: alpha(theme.palette.primary.main, 0.05),
+              color: theme.palette.primary.main,
               overflow: 'hidden',
               transition: theme.transitions.create('height'),
             }}

@@ -1,6 +1,6 @@
+import UploadIcon from '@mui/icons-material/AddCircleOutlineRounded'
 import LoadIcon from '@mui/icons-material/ContentPasteGoRounded'
 import DeleteIcon from '@mui/icons-material/ContentPasteOffRounded'
-import UploadIcon from '@mui/icons-material/ContentPasteRounded'
 import DarkModeIcon from '@mui/icons-material/DarkModeRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import LightModeIcon from '@mui/icons-material/LightModeRounded'
@@ -9,10 +9,10 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
 import Dialog from '@mui/material/Dialog'
+import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import { ThemeProvider } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
@@ -53,7 +53,6 @@ const Root: FC = () => {
           style={{ width: 320 }}
         />
         <Box
-          color={theme.palette.text.primary}
           position="absolute"
           bottom={theme.spacing(-1)}
           left="50%"
@@ -110,21 +109,9 @@ const Root: FC = () => {
         }}
         open={saveDialog}
       >
-        <List sx={{ width: 320 }}>
-          <ListItem>
-            <Button
-              aria-label="save"
-              disabled={state.register.hash === ''}
-              fullWidth
-              onClick={() => {
-                dispatch(savesActions.save(state))
-              }}
-            >
-              <UploadIcon />
-            </Button>
-          </ListItem>
+        <List sx={{ width: 320, p: 2 }}>
           {saves.map((save, index) => (
-            <ListItem key={index}>
+            <Box key={index}>
               <Box
                 display="flex"
                 alignItems="center"
@@ -132,11 +119,17 @@ const Root: FC = () => {
                 width={1}
               >
                 <Box>
-                  <Typography sx={{ color: theme.palette.text.primary }}>
-                    {save.register.hash}
+                  <Typography>{save.register.hash}</Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ color: theme.palette.text.secondary }}
+                  >
+                    {new Date(save.date).getMonth()}/
+                    {new Date(save.date).getDay()}/
+                    {new Date(save.date).getFullYear()}
                   </Typography>
                 </Box>
-                <Box>
+                <Box display="flex">
                   <IconButton
                     aria-label="load"
                     color="primary"
@@ -160,8 +153,22 @@ const Root: FC = () => {
                   </IconButton>
                 </Box>
               </Box>
-            </ListItem>
+              <Box my={2}>
+                <Divider />
+              </Box>
+            </Box>
           ))}
+          <Button
+            aria-label="save"
+            disabled={state.register.hash === ''}
+            fullWidth
+            size="large"
+            onClick={() => {
+              dispatch(savesActions.save({ ...state, date: Date.now() }))
+            }}
+          >
+            <UploadIcon />
+          </Button>
         </List>
       </Dialog>
     </ThemeProvider>
