@@ -131,19 +131,22 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
           ))}
         </Grid>
       </Box>
-      <Box>
-        <Box mt={2}>
-          <Button
-            aria-label="delete"
-            color="secondary"
-            fullWidth
-            size="small"
-            onClick={onDelete}
-          >
-            <Delete />
-          </Button>
-        </Box>
-      </Box>
+      {round.code.every(code => code.digit === null) &&
+        round.queries.every(query => query.state === 'unknown') && (
+          <Box>
+            <Box mt={2}>
+              <Button
+                aria-label="delete"
+                color="secondary"
+                fullWidth
+                size="small"
+                onClick={onDelete}
+              >
+                <Delete />
+              </Button>
+            </Box>
+          </Box>
+        )}
       <Box my={2}>
         <Divider />
       </Box>
