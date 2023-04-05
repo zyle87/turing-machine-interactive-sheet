@@ -1,5 +1,5 @@
 import Check from '@mui/icons-material/CheckBoxRounded'
-import Clear from '@mui/icons-material/FormatClearRounded'
+import Clear from '@mui/icons-material/FontDownloadOffRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'

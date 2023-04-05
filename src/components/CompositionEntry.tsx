@@ -1,5 +1,6 @@
-import Correct from '@mui/icons-material/CheckRounded'
-import Incorrect from '@mui/icons-material/CloseRounded'
+import Solved from '@mui/icons-material/CheckRounded'
+import Unsolved from '@mui/icons-material/CloseRounded'
+import Delete from '@mui/icons-material/HideSourceRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -18,9 +19,10 @@ import TextField from './TextField'
 type Props = {
   entry: CompositionState[number]
   index: number
+  onDelete: () => void
 }
 
-const CompositionEntry: FC<Props> = ({ entry, index }) => {
+const CompositionEntry: FC<Props> = ({ entry, index, onDelete }) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
@@ -60,7 +62,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
       </Grid>
       <Box mt={0.5}>
         <Grid container spacing={0.5}>
-          {entry.answers.map(answer => (
+          {entry.queries.map(answer => (
             <Grid item xs={2} key={answer.verifier}>
               <Button
                 arial-label={answer.verifier}
@@ -117,11 +119,11 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                         left={3}
                         sx={{ color: theme.palette.text.primary }}
                       >
-                        {answer.state === 'correct' && (
-                          <Correct fontSize="large" />
+                        {answer.state === 'solved' && (
+                          <Solved fontSize="large" />
                         )}
-                        {answer.state === 'incorrect' && (
-                          <Incorrect fontSize="large" />
+                        {answer.state === 'unsolved' && (
+                          <Unsolved fontSize="large" />
                         )}
                       </Box>
                     </Box>
@@ -131,6 +133,19 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
             </Grid>
           ))}
         </Grid>
+      </Box>
+      <Box>
+        <Box mt={2}>
+          <Button
+            aria-label="delete"
+            color="secondary"
+            fullWidth
+            size="small"
+            onClick={onDelete}
+          >
+            <Delete />
+          </Button>
+        </Box>
       </Box>
       <Box my={2}>
         <Divider />

@@ -146,7 +146,7 @@ const Root: FC = () => {
                     aria-label="delete"
                     color="secondary"
                     onClick={() => {
-                      dispatch(savesActions.delete(index))
+                      dispatch(savesActions.deleteSave(index))
                     }}
                   >
                     <DeleteIcon />
@@ -164,7 +164,7 @@ const Root: FC = () => {
             fullWidth
             size="large"
             onClick={() => {
-              dispatch(savesActions.save({ ...state, date: Date.now() }))
+              dispatch(savesActions.loadSave({ ...state, date: Date.now() }))
             }}
           >
             <UploadIcon />

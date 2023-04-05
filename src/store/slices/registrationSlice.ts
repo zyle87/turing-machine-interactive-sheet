@@ -11,10 +11,10 @@ const initialState: RegistrationState = {
 }
 
 export const registrationSlice = createSlice({
-  name: 'register',
+  name: 'registration',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<RegistrationState>) => action.payload,
+    load: (_, action: PayloadAction<RegistrationState>) => action.payload,
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },

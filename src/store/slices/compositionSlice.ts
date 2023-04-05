@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-type Answer = {
+type Query = {
   verifier: Verifier
-  state: 'correct' | 'incorrect' | 'unknown'
+  state: 'solved' | 'unsolved' | 'unknown'
 }
 
 type Proposal = {
@@ -12,35 +12,27 @@ type Proposal = {
 
 export type CompositionState = {
   proposals: Proposal[]
-  answers: Answer[]
+  queries: Query[]
 }[]
 
-const initialState: CompositionState = [
-  {
-    proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
-      shape,
-      digit: null,
-    })),
-    answers: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(verifier => ({
-      verifier,
-      state: 'unknown',
-    })),
-  },
-]
+const initialState: CompositionState = []
 
 export const compositionSlice = createSlice({
   name: 'composition',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<CompositionState>) => action.payload,
+    load: (_, action: PayloadAction<CompositionState>) => action.payload,
     resetComposition: () => initialState,
+    deleteCompositionEntry: (state, action: PayloadAction<number>) => {
+      state.splice(action.payload, 1)
+    },
     addComposition: state => {
       state.push({
         proposals: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
           shape,
           digit: null,
         })),
-        answers: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(
+        queries: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(
           verifier => ({
             verifier,
             state: 'unknown',
@@ -72,18 +64,18 @@ export const compositionSlice = createSlice({
     ) => {
       const { index, verifier } = action.payload
       const composition = state[index]
-      const answer = composition.answers.find(
+      const answer = composition.queries.find(
         answer => answer.verifier === verifier
       )!
 
       switch (answer.state) {
         case 'unknown':
-          answer.state = 'incorrect'
+          answer.state = 'unsolved'
           break
-        case 'incorrect':
-          answer.state = 'correct'
+        case 'unsolved':
+          answer.state = 'solved'
           break
-        case 'correct':
+        case 'solved':
           answer.state = 'unknown'
           break
       }

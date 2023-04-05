@@ -1,5 +1,5 @@
 import Add from '@mui/icons-material/AddTaskRounded'
-import Clear from '@mui/icons-material/LayersClearRounded'
+import Clear from '@mui/icons-material/RemoveDoneRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -34,7 +34,14 @@ const Composition: FC = () => {
       </Box>
       <Box p={2} pb={0}>
         {composition.map((entry, index) => (
-          <CompositionEntry key={index} entry={entry} index={index} />
+          <CompositionEntry
+            key={index}
+            entry={entry}
+            index={index}
+            onDelete={() => {
+              dispatch(compositionActions.deleteCompositionEntry(index))
+            }}
+          />
         ))}
       </Box>
       <Box p={2} pt={0}>

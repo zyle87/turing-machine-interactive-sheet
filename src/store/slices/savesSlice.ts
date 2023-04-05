@@ -20,7 +20,7 @@ export const savesSlice = createSlice({
   name: 'saves',
   initialState,
   reducers: {
-    save: (state, action: PayloadAction<Save>) => {
+    loadSave: (state, action: PayloadAction<Save>) => {
       const {
         registration: register,
         digitCode,
@@ -37,7 +37,7 @@ export const savesSlice = createSlice({
         date,
       })
     },
-    delete: (state, action: PayloadAction<number>) => {
+    deleteSave: (state, action: PayloadAction<number>) => {
       state.splice(action.payload, 1)
     },
   },

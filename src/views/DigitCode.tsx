@@ -1,5 +1,5 @@
 import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
-import Clear from '@mui/icons-material/KeyOffRounded'
+import Clear from '@mui/icons-material/GridOffRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
