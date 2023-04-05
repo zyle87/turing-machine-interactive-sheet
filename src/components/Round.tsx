@@ -1,17 +1,18 @@
 import Solved from '@mui/icons-material/CheckRounded'
 import Unsolved from '@mui/icons-material/CloseRounded'
-import Delete from '@mui/icons-material/HideSourceRounded'
+import Delete from '@mui/icons-material/UndoRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import { alpha, useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { RoundsState, roundsActions } from 'store/slices/roundsSlice'
 import ShapeIcon from './ShapeIcon'
 import SingleCharLabel from './SingleCharLabel'
 import TextField from './TextField'
+import { useUpdateEffect } from 'react-use'
 
 type Props = {
   round: RoundsState[number]
@@ -39,7 +40,7 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
               value={code.digit}
               onChange={value => {
                 dispatch(
-                  roundsActions.updateRoundDigit({
+                  roundsActions.updateCodeDigit({
                     index,
                     shape: code.shape,
                     digit: value ? (Number(value) as Digit) : null,
@@ -131,22 +132,21 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
           ))}
         </Grid>
       </Box>
-      {round.code.every(code => code.digit === null) &&
-        round.queries.every(query => query.state === 'unknown') && (
-          <Box>
-            <Box mt={2}>
-              <Button
-                aria-label="delete"
-                color="secondary"
-                fullWidth
-                size="small"
-                onClick={onDelete}
-              >
-                <Delete />
-              </Button>
-            </Box>
+      {round.isPristine && (
+        <Box>
+          <Box mt={2}>
+            <Button
+              aria-label="delete"
+              color="secondary"
+              fullWidth
+              size="small"
+              onClick={onDelete}
+            >
+              <Delete />
+            </Button>
           </Box>
-        )}
+        </Box>
+      )}
       <Box my={2}>
         <Divider />
       </Box>

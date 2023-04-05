@@ -14,7 +14,7 @@ export const digitCodeSlice = createSlice({
   reducers: {
     load: (_, action: PayloadAction<DigitCodeState>) => action.payload,
     resetCode: () => initialState,
-    toggleDigit: (
+    toggleDigitState: (
       state,
       action: PayloadAction<{ shape: Shape; digit: Digit }>
     ) => {

@@ -13,6 +13,7 @@ type Code = {
 export type RoundsState = {
   code: Code[]
   queries: Query[]
+  isPristine: boolean
 }[]
 
 const initialState: RoundsState = []
@@ -38,9 +39,10 @@ export const roundsSlice = createSlice({
             state: 'unknown',
           })
         ),
+        isPristine: true,
       })
     },
-    updateRoundDigit: (
+    updateCodeDigit: (
       state,
       action: PayloadAction<{
         index: number
@@ -53,6 +55,8 @@ export const roundsSlice = createSlice({
       const code = round.code.find(code => code.shape === shape)!
 
       code.digit = digit
+
+      round.isPristine = false
 
       state[index] = round
     },
@@ -75,6 +79,8 @@ export const roundsSlice = createSlice({
           query.state = 'unknown'
           break
       }
+
+      round.isPristine = false
 
       state[index] = round
     },

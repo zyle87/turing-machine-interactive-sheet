@@ -1,5 +1,5 @@
 import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
-import Clear from '@mui/icons-material/GridOffRounded'
+import Clear from '@mui/icons-material/HideSourceRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -63,7 +63,7 @@ const DigitCode: FC = () => {
                   }}
                   onClick={() => {
                     dispatch(
-                      digitCodeActions.toggleDigit({
+                      digitCodeActions.toggleDigitState({
                         shape,
                         digit,
                       })
