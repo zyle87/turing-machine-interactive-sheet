@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store should match initial state 1`] = `
+Object {
+  "comments": Array [],
+  "digitCode": Array [],
+  "registration": Object {
+    "hash": "",
+    "name": "",
+  },
+  "rounds": Array [],
+  "saves": Array [],
+  "settings": Object {
+    "paletteMode": "light",
+    "storeVersion": 1680684576176,
+  },
+}
+`;

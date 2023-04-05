@@ -5,16 +5,17 @@ import { alpha, useTheme } from '@mui/material/styles'
 import { FC, ReactNode } from 'react'
 
 type Props = {
-  iconRender?: ReactNode
-  withStackRadius?: boolean
-  type?: 'text' | 'number' | 'password'
-  maxChars?: number
-  customRadius?: string
-  value?: Nullable<number | string>
-  onChange?: (value: string) => void
-  withReset?: boolean
-  onReset?: () => void
   customFontSize?: string
+  customRadius?: string
+  iconRender?: ReactNode
+  id?: string
+  maxChars?: number
+  onChange?: (value: string) => void
+  onReset?: () => void
+  type?: 'text' | 'number' | 'password'
+  value?: Nullable<number | string>
+  withReset?: boolean
+  withStackRadius?: boolean
 }
 
 const TextField: FC<Props> = props => {
@@ -44,7 +45,7 @@ const TextField: FC<Props> = props => {
       }
     >
       <input
-        className="text-field"
+        id={`${props.id}-text-field`}
         type={props.type}
         min={1}
         max={5}
@@ -90,7 +91,11 @@ const TextField: FC<Props> = props => {
           position="absolute"
           top={0}
         >
-          <IconButton color="primary" onClick={props.onReset}>
+          <IconButton
+            id={`${props.id}-text-field__delete-button`}
+            color="primary"
+            onClick={props.onReset}
+          >
             <Clear />
           </IconButton>
         </Box>
