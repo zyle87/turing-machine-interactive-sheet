@@ -9,6 +9,7 @@
 /coverage
 /cypress/videos
 /cypress/screenshots
+/cypress/snapshots/__diff_output__
 
 # production
 /build
