@@ -1,18 +1,18 @@
 import Add from '@mui/icons-material/AddTaskRounded'
-import Clear from '@mui/icons-material/LayersClearRounded'
+import Clear from '@mui/icons-material/RemoveDoneRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
-import CompositionEntry from 'components/CompositionEntry'
+import Round from 'components/Round'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
-import { compositionActions } from 'store/slices/compositionSlice'
+import { roundsActions } from 'store/slices/roundsSlice'
 
-const Composition: FC = () => {
+const Rounds: FC = () => {
   const dispatch = useAppDispatch()
-  const composition = useAppSelector(state => state.composition)
+  const rounds = useAppSelector(state => state.rounds)
 
   return (
     <Paper component="section" sx={{ width: 320 }}>
@@ -23,7 +23,7 @@ const Composition: FC = () => {
           color="secondary"
           size="large"
           onClick={() => {
-            dispatch(compositionActions.resetComposition())
+            dispatch(roundsActions.resetRounds())
           }}
         >
           <Clear />
@@ -33,8 +33,15 @@ const Composition: FC = () => {
         <Divider />
       </Box>
       <Box p={2} pb={0}>
-        {composition.map((entry, index) => (
-          <CompositionEntry key={index} entry={entry} index={index} />
+        {rounds.map((round, index) => (
+          <Round
+            key={index}
+            round={round}
+            index={index}
+            onDelete={() => {
+              dispatch(roundsActions.deleteRound(index))
+            }}
+          />
         ))}
       </Box>
       <Box p={2} pt={0}>
@@ -43,7 +50,7 @@ const Composition: FC = () => {
           fullWidth
           size="large"
           onClick={() => {
-            dispatch(compositionActions.addComposition())
+            dispatch(roundsActions.addRound())
           }}
         >
           <Add />
@@ -53,4 +60,4 @@ const Composition: FC = () => {
   )
 }
 
-export default Composition
+export default Rounds

@@ -1,5 +1,6 @@
-import Correct from '@mui/icons-material/CheckRounded'
-import Incorrect from '@mui/icons-material/CloseRounded'
+import Solved from '@mui/icons-material/CheckRounded'
+import Unsolved from '@mui/icons-material/CloseRounded'
+import Delete from '@mui/icons-material/UndoRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -7,49 +8,47 @@ import Grid from '@mui/material/Grid'
 import { alpha, useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC } from 'react'
-import {
-  CompositionState,
-  compositionActions,
-} from 'store/slices/compositionSlice'
+import { RoundsState, roundsActions } from 'store/slices/roundsSlice'
 import ShapeIcon from './ShapeIcon'
 import SingleCharLabel from './SingleCharLabel'
 import TextField from './TextField'
 
 type Props = {
-  entry: CompositionState[number]
+  round: RoundsState[number]
   index: number
+  onDelete: () => void
 }
 
-const CompositionEntry: FC<Props> = ({ entry, index }) => {
+const Round: FC<Props> = ({ round, index, onDelete }) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
   return (
     <Box>
       <Grid container spacing={0.5}>
-        {entry.proposals.map(proposal => (
-          <Grid key={proposal.shape} item xs={4}>
+        {round.code.map(code => (
+          <Grid key={code.shape} item xs={4}>
             <TextField
               customRadius={
-                proposal.shape !== 'square'
-                  ? proposal.shape === 'triangle'
+                code.shape !== 'square'
+                  ? code.shape === 'triangle'
                     ? theme.spacing(2, 0, 0, 0)
                     : theme.spacing(0, 2, 0, 0)
                   : undefined
               }
-              value={proposal.digit}
+              value={code.digit}
               onChange={value => {
                 dispatch(
-                  compositionActions.updateProposalDigit({
+                  roundsActions.updateCodeDigit({
                     index,
-                    shape: proposal.shape,
+                    shape: code.shape,
                     digit: value ? (Number(value) as Digit) : null,
                   })
                 )
               }}
               iconRender={
                 <ShapeIcon
-                  shape={proposal.shape as 'triangle' | 'square' | 'circle'}
+                  shape={code.shape as 'triangle' | 'square' | 'circle'}
                   sizeMultiplier={0.5}
                 />
               }
@@ -60,25 +59,25 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
       </Grid>
       <Box mt={0.5}>
         <Grid container spacing={0.5}>
-          {entry.answers.map(answer => (
-            <Grid item xs={2} key={answer.verifier}>
+          {round.queries.map(query => (
+            <Grid item xs={2} key={query.verifier}>
               <Button
-                arial-label={answer.verifier}
+                arial-label={query.verifier}
                 sx={{
                   minWidth: '100%',
                   p: 0,
                   borderRadius: theme.spacing(
                     0,
                     0,
-                    answer.verifier === 'F' ? 2 : 0,
-                    answer.verifier === 'A' ? 2 : 0
+                    query.verifier === 'F' ? 2 : 0,
+                    query.verifier === 'A' ? 2 : 0
                   ),
                 }}
                 onClick={() => {
                   dispatch(
-                    compositionActions.updateAnswerState({
+                    roundsActions.updateQueryState({
                       index,
-                      verifier: answer.verifier,
+                      verifier: query.verifier,
                     })
                   )
                 }}
@@ -86,30 +85,30 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                 <Box width={1}>
                   <Box
                     pt={1}
-                    sx={theme => ({
+                    sx={{
                       textAlign: 'center',
                       background:
-                        answer.verifier === 'E' || answer.verifier === 'F'
+                        query.verifier === 'E' || query.verifier === 'F'
                           ? alpha(theme.palette.primary.main, 0.1)
                           : null,
                       borderRadius:
-                        answer.verifier === 'F'
+                        query.verifier === 'F'
                           ? theme.spacing(0, 0, 2, 0)
                           : null,
-                    })}
+                    }}
                   >
-                    <SingleCharLabel>{answer.verifier}</SingleCharLabel>
+                    <SingleCharLabel>{query.verifier}</SingleCharLabel>
                     <Box pt={1} pb={2} position="relative">
                       <Box
                         height={20}
                         margin="auto"
                         width={20}
-                        sx={theme => ({
+                        sx={{
                           borderWidth: 2,
                           borderStyle: 'solid',
                           borderColor: theme.palette.primary.main,
                           borderRadius: theme.spacing(0.5),
-                        })}
+                        }}
                       />
                       <Box
                         position="absolute"
@@ -117,11 +116,11 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                         left={3}
                         sx={{ color: theme.palette.text.primary }}
                       >
-                        {answer.state === 'correct' && (
-                          <Correct fontSize="large" />
+                        {query.state === 'solved' && (
+                          <Solved fontSize="large" />
                         )}
-                        {answer.state === 'incorrect' && (
-                          <Incorrect fontSize="large" />
+                        {query.state === 'unsolved' && (
+                          <Unsolved fontSize="large" />
                         )}
                       </Box>
                     </Box>
@@ -132,6 +131,21 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
           ))}
         </Grid>
       </Box>
+      {round.isPristine && (
+        <Box>
+          <Box mt={2}>
+            <Button
+              aria-label="delete"
+              color="secondary"
+              fullWidth
+              size="small"
+              onClick={onDelete}
+            >
+              <Delete />
+            </Button>
+          </Box>
+        </Box>
+      )}
       <Box my={2}>
         <Divider />
       </Box>
@@ -139,4 +153,4 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
   )
 }
 
-export default CompositionEntry
+export default Round

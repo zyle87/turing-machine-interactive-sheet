@@ -8,8 +8,10 @@ export const customTheme = createTheme({
       fontWeight: 700,
     },
     body1: {
-      color: '#35b663',
       fontWeight: 700,
+      fontFamily: 'Kalam',
+    },
+    body2: {
       fontFamily: 'Kalam',
     },
   },

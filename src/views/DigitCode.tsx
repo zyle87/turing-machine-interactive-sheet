@@ -1,5 +1,5 @@
 import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
-import Clear from '@mui/icons-material/KeyOffRounded'
+import Clear from '@mui/icons-material/HideSourceRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -7,16 +7,18 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
+import { useTheme } from '@mui/material/styles'
 import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
-import { codeActions } from 'store/slices/codeSlice'
+import { digitCodeActions } from 'store/slices/digitCodeSlice'
 
-const Code: FC = () => {
+const DigitCode: FC = () => {
   const dispatch = useAppDispatch()
-  const code = useAppSelector(state => state.code)
+  const digitCode = useAppSelector(state => state.digitCode)
+  const theme = useTheme()
 
   return (
     <Paper sx={{ py: 2, width: 320 }}>
@@ -27,7 +29,7 @@ const Code: FC = () => {
             fullWidth
             color="secondary"
             onClick={() => {
-              dispatch(codeActions.resetCode())
+              dispatch(digitCodeActions.resetCode())
             }}
             size="large"
           >
@@ -39,7 +41,7 @@ const Code: FC = () => {
         </Box>
       </Box>
       <Grid container>
-        {(['triangle', 'square', 'circle'] as Shape[]).map((shape, index) => (
+        {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
           <Grid key={shape} item xs={4} sx={{ textAlign: 'center' }}>
             <Box
               width={1}
@@ -55,13 +57,13 @@ const Code: FC = () => {
                 <IconButton
                   aria-label={`${shape} ${digit}`}
                   color="primary"
-                  sx={theme => ({
+                  sx={{
                     height: theme.spacing(6),
                     width: theme.spacing(6),
-                  })}
+                  }}
                   onClick={() => {
                     dispatch(
-                      codeActions.toggleDigit({
+                      digitCodeActions.toggleDigitState({
                         shape,
                         digit,
                       })
@@ -73,12 +75,12 @@ const Code: FC = () => {
                     position="absolute"
                     top={4}
                     left={4}
-                    sx={theme => ({ color: theme.palette.text.primary })}
+                    sx={{ color: theme.palette.text.primary }}
                   >
-                    {code.find(
+                    {digitCode.find(
                       entry => entry.shape === shape && entry.digit === digit
                     )?.state === 'correct' && <Correct fontSize="large" />}
-                    {code.find(
+                    {digitCode.find(
                       entry => entry.shape === shape && entry.digit === digit
                     )?.state === 'incorrect' && (
                       <Incorrect
@@ -97,4 +99,4 @@ const Code: FC = () => {
   )
 }
 
-export default Code
+export default DigitCode

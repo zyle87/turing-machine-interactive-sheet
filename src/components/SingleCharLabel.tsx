@@ -3,6 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 
 const SingleCharLabel: FC<PropsWithChildren> = props => (
   <Typography
+    component="span"
     variant="h6"
     sx={theme => ({
       color: theme.palette.primary.main,

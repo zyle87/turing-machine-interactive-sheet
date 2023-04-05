@@ -1,20 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type RegisterState = {
+export type RegistrationState = {
   name: string
   hash: string
 }
 
-const initialState: RegisterState = {
+const initialState: RegistrationState = {
   name: '',
   hash: '',
 }
 
-export const registerSlice = createSlice({
-  name: 'register',
+export const registrationSlice = createSlice({
+  name: 'registration',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<RegisterState>) => action.payload,
+    load: (_, action: PayloadAction<RegistrationState>) => action.payload,
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
@@ -24,6 +24,6 @@ export const registerSlice = createSlice({
   },
 })
 
-export const registerActions = registerSlice.actions
+export const registrationActions = registrationSlice.actions
 
-export default registerSlice.reducer
+export default registrationSlice.reducer

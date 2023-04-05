@@ -1,5 +1,5 @@
 import Check from '@mui/icons-material/CheckBoxRounded'
-import Clear from '@mui/icons-material/FormatClearRounded'
+import Clear from '@mui/icons-material/CommentsDisabled'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -12,17 +12,17 @@ import { useAppSelector } from 'hooks/useAppSelector'
 import { FC, useMemo, useState } from 'react'
 import ContentEditable from 'react-contenteditable'
 import { useMount } from 'react-use'
-import { deductionActions } from 'store/slices/deductionSlice'
+import { commentsActions } from 'store/slices/commentsSlice'
 
-const Deduction: FC = () => {
+const Comments: FC = () => {
   const dispatch = useAppDispatch()
-  const deduction = useAppSelector(state => state.deduction)
+  const comments = useAppSelector(state => state.comments)
   const theme = useTheme()
 
   const [currentVerifier, setCurrentVerifier] = useState('')
 
   useMount(() => {
-    dispatch(deductionActions.encodeAllDeduction())
+    dispatch(commentsActions.encodeAllComments())
   })
 
   const inputStyles = useMemo(
@@ -45,7 +45,7 @@ const Deduction: FC = () => {
         color="secondary"
         size="large"
         onClick={() => {
-          dispatch(deductionActions.clearDeduction())
+          dispatch(commentsActions.clearComments())
         }}
       >
         <Clear />
@@ -60,7 +60,8 @@ const Deduction: FC = () => {
               position="absolute"
               top={theme.spacing(0.5)}
               left={
-                deduction.find(entry => entry.verifier === verifier)?.ideas
+                comments.find(comment => comment.verifier === verifier)
+                  ?.assumption
                   ? theme.spacing(32.5)
                   : theme.spacing(1.5)
               }
@@ -77,25 +78,28 @@ const Deduction: FC = () => {
                     : event.target.value
 
                 dispatch(
-                  deductionActions.updateIdeas({
+                  commentsActions.updateAssumption({
                     verifier,
-                    ideas: value.toLowerCase(),
+                    assumption: value.toLowerCase(),
                   })
                 )
               }}
               html={
-                deduction.find(entry => entry.verifier === verifier)?.ideas ||
-                ''
+                comments.find(comment => comment.verifier === verifier)
+                  ?.assumption || ''
               }
               onFocus={_ => {
                 setCurrentVerifier(verifier)
                 dispatch(
-                  deductionActions.decodeDeduction({ verifier, type: 'ideas' })
+                  commentsActions.decodeComment({
+                    verifier,
+                    category: 'assumption',
+                  })
                 )
               }}
               onBlur={_ => {
                 setCurrentVerifier('')
-                dispatch(deductionActions.encodeAllDeduction())
+                dispatch(commentsActions.encodeAllComments())
               }}
               style={{
                 ...inputStyles,
@@ -108,6 +112,7 @@ const Deduction: FC = () => {
             height={currentVerifier === verifier ? theme.spacing(7) : 0}
             sx={{
               backgroundColor: alpha(theme.palette.primary.main, 0.05),
+              color: theme.palette.primary.main,
               overflow: 'hidden',
               transition: theme.transitions.create('height'),
             }}
@@ -144,7 +149,8 @@ const Deduction: FC = () => {
               position="absolute"
               top={theme.spacing(1)}
               left={
-                deduction.find(entry => entry.verifier === verifier)?.result
+                comments.find(comment => comment.verifier === verifier)
+                  ?.conclusion
                   ? theme.spacing(31.5)
                   : theme.spacing(1)
               }
@@ -161,25 +167,28 @@ const Deduction: FC = () => {
                     : event.target.value
 
                 dispatch(
-                  deductionActions.updateResult({
+                  commentsActions.updateConclusion({
                     verifier,
-                    result: value.toLowerCase(),
+                    conclusion: value.toLowerCase(),
                   })
                 )
               }}
               html={
-                deduction.find(entry => entry.verifier === verifier)?.result ||
-                ''
+                comments.find(comment => comment.verifier === verifier)
+                  ?.conclusion || ''
               }
               onFocus={_ => {
                 setCurrentVerifier(verifier)
                 dispatch(
-                  deductionActions.decodeDeduction({ verifier, type: 'result' })
+                  commentsActions.decodeComment({
+                    verifier,
+                    category: 'conclusion',
+                  })
                 )
               }}
               onBlur={_ => {
                 setCurrentVerifier('')
-                dispatch(deductionActions.encodeAllDeduction())
+                dispatch(commentsActions.encodeAllComments())
               }}
               style={{
                 ...inputStyles,
@@ -198,4 +207,4 @@ const Deduction: FC = () => {
   )
 }
 
-export default Deduction
+export default Comments
