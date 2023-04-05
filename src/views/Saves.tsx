@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
-import { deductionActions } from 'store/slices/deductionSlice'
+import { commentsActions } from 'store/slices/commentsSlice'
 import { digitCodeActions } from 'store/slices/digitCodeSlice'
 import { registrationActions } from 'store/slices/registrationSlice'
 import { roundsActions } from 'store/slices/roundsSlice'
@@ -57,7 +57,7 @@ const Saves: FC<Props> = props => {
                   onClick={() => {
                     dispatch(digitCodeActions.load(save.digitCode))
                     dispatch(roundsActions.load(save.rounds))
-                    dispatch(deductionActions.load(save.deduction))
+                    dispatch(commentsActions.load(save.comments))
                     dispatch(registrationActions.load(save.registration))
                   }}
                 >

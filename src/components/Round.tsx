@@ -7,12 +7,11 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import { alpha, useTheme } from '@mui/material/styles'
 import { useAppDispatch } from 'hooks/useAppDispatch'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { RoundsState, roundsActions } from 'store/slices/roundsSlice'
 import ShapeIcon from './ShapeIcon'
 import SingleCharLabel from './SingleCharLabel'
 import TextField from './TextField'
-import { useUpdateEffect } from 'react-use'
 
 type Props = {
   round: RoundsState[number]

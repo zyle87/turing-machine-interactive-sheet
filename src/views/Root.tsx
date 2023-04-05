@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton'
 import { ThemeProvider } from '@mui/material/styles'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
-import Deduction from './Deduction'
+import Comments from './Comments'
 import DigitCode from './DigitCode'
 import Registration from './Registration'
 import Rounds from './Rounds'
@@ -82,7 +82,7 @@ const Root: FC = () => {
           <Rounds />
         </Grid>
         <Grid item>
-          <Deduction />
+          <Comments />
         </Grid>
       </Grid>
       <Saves

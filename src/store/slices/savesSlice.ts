@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { DeductionState } from './deductionSlice'
+import { CommentsState } from './commentsSlice'
 import { DigitCodeState } from './digitCodeSlice'
 import { RegistrationState } from './registrationSlice'
 import { RoundsState } from './roundsSlice'
 
 type Save = {
-  deduction: DeductionState
+  comments: CommentsState
   digitCode: DigitCodeState
   registration: RegistrationState
   rounds: RoundsState
@@ -21,11 +21,10 @@ export const savesSlice = createSlice({
   initialState,
   reducers: {
     loadSave: (state, action: PayloadAction<Save>) => {
-      const { digitCode, deduction, registration, rounds, date } =
-        action.payload
+      const { digitCode, comments, registration, rounds, date } = action.payload
 
       state.push({
-        deduction,
+        comments,
         digitCode,
         registration,
         rounds,

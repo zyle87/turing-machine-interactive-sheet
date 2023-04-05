@@ -1,5 +1,5 @@
 import { configureStore, StateFromReducersMapObject } from '@reduxjs/toolkit'
-import deduction from './slices/deductionSlice'
+import comments from './slices/commentsSlice'
 import digitCode from './slices/digitCodeSlice'
 import registration from './slices/registrationSlice'
 import rounds from './slices/roundsSlice'
@@ -9,7 +9,7 @@ import { loadState, saveState } from './storage'
 
 const preloadedState = loadState()
 const reducer = {
-  deduction,
+  comments,
   digitCode,
   registration,
   rounds,
