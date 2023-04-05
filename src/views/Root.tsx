@@ -19,12 +19,12 @@ import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
-import { compositionActions } from 'store/slices/compositionSlice'
+import { roundsActions } from 'store/slices/roundsSlice'
 import { deductionActions } from 'store/slices/deductionSlice'
 import { digitCodeActions } from 'store/slices/digitCodeSlice'
 import { registrationActions } from 'store/slices/registrationSlice'
 import { savesActions } from 'store/slices/savesSlice'
-import Composition from './Composition'
+import Rounds from './Rounds'
 import Deduction from './Deduction'
 import DigitCode from './DigitCode'
 import Registration from './Registration'
@@ -97,7 +97,7 @@ const Root: FC = () => {
           <DigitCode />
         </Grid>
         <Grid item>
-          <Composition />
+          <Rounds />
         </Grid>
         <Grid item>
           <Deduction />
@@ -135,7 +135,7 @@ const Root: FC = () => {
                     color="primary"
                     onClick={() => {
                       dispatch(digitCodeActions.load(save.digitCode))
-                      dispatch(compositionActions.load(save.composition))
+                      dispatch(roundsActions.load(save.rounds))
                       dispatch(deductionActions.load(save.deduction))
                       dispatch(registrationActions.load(save.registration))
                     }}
