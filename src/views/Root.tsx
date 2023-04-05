@@ -19,15 +19,15 @@ import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
-import { codeActions } from 'store/slices/codeSlice'
 import { compositionActions } from 'store/slices/compositionSlice'
 import { deductionActions } from 'store/slices/deductionSlice'
-import { registerActions } from 'store/slices/registerSlice'
+import { digitCodeActions } from 'store/slices/digitCodeSlice'
+import { registrationActions } from 'store/slices/registrationSlice'
 import { savesActions } from 'store/slices/savesSlice'
-import Code from './Code'
 import Composition from './Composition'
 import Deduction from './Deduction'
-import Register from './Register'
+import DigitCode from './DigitCode'
+import Registration from './Registration'
 
 const Root: FC = () => {
   const dispatch = useAppDispatch()
@@ -91,10 +91,10 @@ const Root: FC = () => {
           </Box>
         </Box>
       </Box>
-      <Register />
+      <Registration />
       <Grid container justifyContent="center" spacing={2}>
         <Grid item>
-          <Code />
+          <DigitCode />
         </Grid>
         <Grid item>
           <Composition />
@@ -119,7 +119,7 @@ const Root: FC = () => {
                 width={1}
               >
                 <Box>
-                  <Typography>{save.register.hash}</Typography>
+                  <Typography>{save.registration.hash}</Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.palette.text.secondary }}
@@ -134,10 +134,10 @@ const Root: FC = () => {
                     aria-label="load"
                     color="primary"
                     onClick={() => {
-                      dispatch(codeActions.load(save.code))
+                      dispatch(digitCodeActions.load(save.digitCode))
                       dispatch(compositionActions.load(save.composition))
                       dispatch(deductionActions.load(save.deduction))
-                      dispatch(registerActions.load(save.register))
+                      dispatch(registrationActions.load(save.registration))
                     }}
                   >
                     <LoadIcon />
@@ -160,7 +160,7 @@ const Root: FC = () => {
           ))}
           <Button
             aria-label="save"
-            disabled={state.register.hash === ''}
+            disabled={state.registration.hash === ''}
             fullWidth
             size="large"
             onClick={() => {

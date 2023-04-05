@@ -86,7 +86,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                 <Box width={1}>
                   <Box
                     pt={1}
-                    sx={theme => ({
+                    sx={{
                       textAlign: 'center',
                       background:
                         answer.verifier === 'E' || answer.verifier === 'F'
@@ -96,7 +96,7 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                         answer.verifier === 'F'
                           ? theme.spacing(0, 0, 2, 0)
                           : null,
-                    })}
+                    }}
                   >
                     <SingleCharLabel>{answer.verifier}</SingleCharLabel>
                     <Box pt={1} pb={2} position="relative">
@@ -104,12 +104,12 @@ const CompositionEntry: FC<Props> = ({ entry, index }) => {
                         height={20}
                         margin="auto"
                         width={20}
-                        sx={theme => ({
+                        sx={{
                           borderWidth: 2,
                           borderStyle: 'solid',
                           borderColor: theme.palette.primary.main,
                           borderRadius: theme.spacing(0.5),
-                        })}
+                        }}
                       />
                       <Box
                         position="absolute"

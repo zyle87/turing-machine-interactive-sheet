@@ -1,18 +1,18 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export type CodeState = {
+export type DigitCodeState = {
   shape: Shape
   digit: Digit
   state: 'correct' | 'incorrect'
 }[]
 
-const initialState: CodeState = []
+const initialState: DigitCodeState = []
 
-export const codeSlice = createSlice({
-  name: 'code',
+export const digitCodeSlice = createSlice({
+  name: 'digitCode',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<CodeState>) => action.payload,
+    load: (_, action: PayloadAction<DigitCodeState>) => action.payload,
     resetCode: () => initialState,
     toggleDigit: (
       state,
@@ -40,6 +40,6 @@ export const codeSlice = createSlice({
   },
 })
 
-export const codeActions = codeSlice.actions
+export const digitCodeActions = digitCodeSlice.actions
 
-export default codeSlice.reducer
+export default digitCodeSlice.reducer
