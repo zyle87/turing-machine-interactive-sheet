@@ -1,5 +1,6 @@
 describe('rounds', () => {
   it('should add a round and undo it', () => {
+    cy.viewport(640, 777)
     cy.visit('/')
 
     cy.get('#rounds-section').matchImageSnapshot('pristine')

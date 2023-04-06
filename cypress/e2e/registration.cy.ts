@@ -1,5 +1,6 @@
 describe('registration', () => {
   it('should register and clear', () => {
+    cy.viewport(640, 777)
     cy.visit('/')
 
     cy.get('#registration-section').matchImageSnapshot('pristine')
