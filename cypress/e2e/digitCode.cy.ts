@@ -1,5 +1,17 @@
 describe('digitCode', () => {
   it('should match digit code', () => {
+    cy.wrap(
+      Cypress.automation('remote:debugger:protocol', {
+        command: 'Emulation.setDeviceMetricsOverride',
+        params: {
+          deviceScaleFactor: 1,
+          width: 0,
+          height: 0,
+          mobile: false,
+        },
+      })
+    )
+
     cy.visit('/').wait(1000)
 
     cy.get('#digit-code__triangle-1-button').click()

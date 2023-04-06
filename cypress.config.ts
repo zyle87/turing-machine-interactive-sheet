@@ -5,6 +5,8 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(on, config) {
+      addMatchImageSnapshotPlugin(on, config)
+
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.name === 'chrome' && browser.isHeadless) {
           // fullPage screenshot size is 1400x1200 on non-retina screens
@@ -33,8 +35,6 @@ export default defineConfig({
 
         return launchOptions
       })
-
-      addMatchImageSnapshotPlugin(on, config)
     },
   },
 })

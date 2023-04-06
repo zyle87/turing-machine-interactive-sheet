@@ -1,5 +1,17 @@
 describe('rounds', () => {
   it('should add a round and undo it', () => {
+    cy.wrap(
+      Cypress.automation('remote:debugger:protocol', {
+        command: 'Emulation.setDeviceMetricsOverride',
+        params: {
+          deviceScaleFactor: 1,
+          width: 0,
+          height: 0,
+          mobile: false,
+        },
+      })
+    )
+
     cy.visit('/').wait(1000)
 
     cy.get('#rounds__add-round-button').click().blur()
