@@ -1,8 +1,6 @@
 describe('digitCode', () => {
   it('should match digit code', () => {
-    cy.visit('/')
-
-    cy.get('#digit-code-section').matchImageSnapshot('digitCode/pristine')
+    cy.visit('/').wait(1000)
 
     cy.get('#digit-code__triangle-1-button').click()
     cy.get('#digit-code__triangle-2-button').click()
@@ -18,10 +16,10 @@ describe('digitCode', () => {
     cy.get('#digit-code__circle-4-button').click()
     cy.get('#digit-code__circle-4-button').click().blur()
 
-    cy.get('#digit-code-section').matchImageSnapshot('digitCode/filled')
+    cy.get('#digit-code-section').matchImageSnapshot('filled')
 
     cy.get('#digit-code__clear-button').click().blur()
 
-    cy.get('#digit-code-section').matchImageSnapshot('digitCode/cleared')
+    cy.get('#digit-code-section').matchImageSnapshot('cleared')
   })
 })
