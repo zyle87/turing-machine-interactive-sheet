@@ -2,8 +2,8 @@ import Add from '@mui/icons-material/AddTaskRounded'
 import Clear from '@mui/icons-material/RemoveDoneRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 import Paper from '@mui/material/Paper'
+import ClearButton from 'components/ClearButton'
 import Round from 'components/Round'
 import { useAppDispatch } from 'hooks/useAppDispatch'
 import { useAppSelector } from 'hooks/useAppSelector'
@@ -15,23 +15,14 @@ const Rounds: FC = () => {
   const rounds = useAppSelector(state => state.rounds)
 
   return (
-    <Paper component="section" sx={{ width: 320 }}>
-      <Box p={2}>
-        <Button
-          aria-label="clear"
-          fullWidth
-          color="secondary"
-          size="large"
-          onClick={() => {
-            dispatch(roundsActions.resetRounds())
-          }}
-        >
-          <Clear />
-        </Button>
-      </Box>
-      <Box px={2}>
-        <Divider />
-      </Box>
+    <Paper component="section" id="rounds-section" sx={{ width: 320 }}>
+      <ClearButton
+        prefixId="rounds"
+        iconRender={<Clear />}
+        onClick={() => {
+          dispatch(roundsActions.resetRounds())
+        }}
+      />
       <Box p={2} pb={0}>
         {rounds.map((round, index) => (
           <Round

@@ -16,3 +16,20 @@ Object {
   },
 }
 `;
+
+exports[`store should toggle palette mode 1`] = `
+Object {
+  "comments": Array [],
+  "digitCode": Array [],
+  "registration": Object {
+    "hash": "",
+    "name": "",
+  },
+  "rounds": Array [],
+  "saves": Array [],
+  "settings": Object {
+    "paletteMode": "dark",
+    "storeVersion": 1680684576176,
+  },
+}
+`;

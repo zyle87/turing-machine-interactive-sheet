@@ -92,7 +92,7 @@ const TextField: FC<Props> = props => {
           top={0}
         >
           <IconButton
-            id={`${props.id}-text-field__delete-button`}
+            id={`${props.id}-text-field__clear-button`}
             color="primary"
             onClick={props.onReset}
           >
