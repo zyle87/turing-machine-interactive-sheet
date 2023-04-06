@@ -5,9 +5,9 @@ describe('registration', () => {
         command: 'Emulation.setDeviceMetricsOverride',
         params: {
           deviceScaleFactor: 1,
-          width: 0,
           height: 0,
           mobile: false,
+          width: 0,
         },
       })
     )
@@ -17,11 +17,11 @@ describe('registration', () => {
     cy.get('#registration__name-text-field').type('john doe')
     cy.get('#registration__hash-text-field').type('B62 0GL M').blur()
 
-    cy.matchImageSnapshot('filled')
+    cy.get('#registration-section').matchImageSnapshot('filled')
 
     cy.get('#registration__name-text-field__clear-button').click()
     cy.get('#registration__hash-text-field__clear-button').click()
 
-    cy.matchImageSnapshot('cleared')
+    cy.get('#registration-section').matchImageSnapshot('cleared')
   })
 })
