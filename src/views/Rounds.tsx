@@ -37,6 +37,7 @@ const Rounds: FC = () => {
       </Box>
       <Box p={2} pt={0}>
         <Button
+          id="rounds__add-round-button"
           aria-label="add"
           fullWidth
           size="large"
