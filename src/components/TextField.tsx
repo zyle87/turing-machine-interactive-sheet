@@ -8,7 +8,7 @@ type Props = {
   customFontSize?: string
   customRadius?: string
   iconRender?: ReactNode
-  id?: string
+  prefixId?: string
   maxChars?: number
   onChange?: (value: string) => void
   onReset?: () => void
@@ -45,7 +45,7 @@ const TextField: FC<Props> = props => {
       }
     >
       <input
-        id={`${props.id}-text-field`}
+        id={`${props.prefixId}-text-field`}
         type={props.type}
         min={1}
         max={5}
@@ -92,7 +92,7 @@ const TextField: FC<Props> = props => {
           top={0}
         >
           <IconButton
-            id={`${props.id}-text-field__clear-button`}
+            id={`${props.prefixId}-text-field__clear-button`}
             color="primary"
             onClick={props.onReset}
           >

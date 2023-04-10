@@ -19,7 +19,7 @@ const Registration: FC = () => {
       margin="0 auto 16px"
     >
       <TextField
-        id="registration__name"
+        prefixId="registration__name"
         iconRender={<PersonIcon />}
         withStackRadius
         value={registration.name}
@@ -30,7 +30,7 @@ const Registration: FC = () => {
         onReset={() => dispatch(registrationActions.updateName(''))}
       />
       <TextField
-        id="registration__hash"
+        prefixId="registration__hash"
         iconRender={<HashIcon />}
         withStackRadius
         value={registration.hash}
