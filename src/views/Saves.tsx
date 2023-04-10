@@ -45,9 +45,11 @@ const Saves: FC<Props> = props => {
                   variant="body2"
                   sx={{ color: theme.palette.text.secondary }}
                 >
-                  {new Date(save.date).getMonth()}/
-                  {new Date(save.date).getDay()}/
-                  {new Date(save.date).getFullYear()}
+                  {new Date(save.date).toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
                 </Typography>
               </Box>
               <Box display="flex">

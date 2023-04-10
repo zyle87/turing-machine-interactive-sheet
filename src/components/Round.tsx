@@ -135,6 +135,7 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
         <Box>
           <Box mt={2}>
             <Button
+              id={`rounds__delete-round-${index + 1}-button`}
               aria-label="delete"
               color="secondary"
               fullWidth
