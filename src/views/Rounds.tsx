@@ -29,7 +29,7 @@ const Rounds: FC = () => {
             key={index}
             round={round}
             index={index}
-            onDelete={() => {
+            onUndo={() => {
               dispatch(roundsActions.deleteRound(index))
             }}
           />

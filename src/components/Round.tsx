@@ -16,10 +16,10 @@ import TextField from './TextField'
 type Props = {
   round: RoundsState[number]
   index: number
-  onDelete: () => void
+  onUndo: () => void
 }
 
-const Round: FC<Props> = ({ round, index, onDelete }) => {
+const Round: FC<Props> = ({ round, index, onUndo }) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
@@ -29,6 +29,7 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
         {round.code.map(code => (
           <Grid key={code.shape} item xs={4}>
             <TextField
+              prefixId={`rounds__round-${index + 1}-${code.shape}`}
               customRadius={
                 code.shape !== 'square'
                   ? code.shape === 'triangle'
@@ -62,6 +63,9 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
           {round.queries.map(query => (
             <Grid item xs={2} key={query.verifier}>
               <Button
+                id={`rounds__round-${
+                  index + 1
+                }-verifier-${query.verifier.toLowerCase()}-button`}
                 arial-label={query.verifier}
                 sx={{
                   minWidth: '100%',
@@ -135,12 +139,12 @@ const Round: FC<Props> = ({ round, index, onDelete }) => {
         <Box>
           <Box mt={2}>
             <Button
-              id={`rounds__delete-round-${index + 1}-button`}
-              aria-label="delete"
+              id={`rounds__round-${index + 1}-undo-button`}
+              aria-label="undo"
               color="secondary"
               fullWidth
               size="small"
-              onClick={onDelete}
+              onClick={onUndo}
             >
               <Delete />
             </Button>
