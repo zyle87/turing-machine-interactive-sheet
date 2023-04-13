@@ -38,7 +38,7 @@ const Comments: FC = () => {
   )
 
   return (
-    <Paper sx={{ width: 320 }}>
+    <Paper sx={{ width: 320, mb: 2 }}>
       <ClearButton
         prefixId="comments"
         iconRender={<Clear />}

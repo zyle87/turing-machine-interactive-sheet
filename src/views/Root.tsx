@@ -43,7 +43,9 @@ const Root: FC = () => {
             transform: 'translateX(-50%)',
           }}
         >
-          <h3 style={{ margin: 0 }}>Interactive Sheet</h3>
+          <h3 style={{ margin: 0, transform: 'rotate(-2deg)' }}>
+            Interactive Sheet
+          </h3>
           <Box display="flex" justifyContent="center">
             <IconButton
               aria-label="saves"
