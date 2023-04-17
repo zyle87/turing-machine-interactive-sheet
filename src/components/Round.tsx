@@ -16,10 +16,9 @@ import TextField from './TextField'
 type Props = {
   round: RoundsState[number]
   index: number
-  onUndo: () => void
 }
 
-const Round: FC<Props> = ({ round, index, onUndo }) => {
+const Round: FC<Props> = ({ round, index }) => {
   const dispatch = useAppDispatch()
   const theme = useTheme()
 
@@ -144,7 +143,9 @@ const Round: FC<Props> = ({ round, index, onUndo }) => {
               color="secondary"
               fullWidth
               size="small"
-              onClick={onUndo}
+              onClick={() => {
+                dispatch(roundsActions.deleteRound(index))
+              }}
             >
               <Delete />
             </Button>

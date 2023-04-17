@@ -16,7 +16,8 @@ const Registration: FC = () => {
       id="registration-section"
       component="section"
       width={320}
-      margin="0 auto 16px"
+      margin="auto"
+      mb={2}
     >
       <TextField
         prefixId="registration__name"
