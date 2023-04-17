@@ -15,7 +15,11 @@ const Rounds: FC = () => {
   const rounds = useAppSelector(state => state.rounds)
 
   return (
-    <Paper component="section" id="rounds-section" sx={{ width: 320 }}>
+    <Paper
+      component="section"
+      id="rounds-section"
+      sx={{ width: 320, margin: 'auto' }}
+    >
       <ClearButton
         prefixId="rounds"
         iconRender={<Clear />}
@@ -25,14 +29,7 @@ const Rounds: FC = () => {
       />
       <Box p={2} pb={0}>
         {rounds.map((round, index) => (
-          <Round
-            key={index}
-            round={round}
-            index={index}
-            onDelete={() => {
-              dispatch(roundsActions.deleteRound(index))
-            }}
-          />
+          <Round key={index} round={round} index={index} />
         ))}
       </Box>
       <Box p={2} pt={0}>

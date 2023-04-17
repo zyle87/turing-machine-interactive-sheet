@@ -3,6 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub'
 import LightModeIcon from '@mui/icons-material/LightModeRounded'
 import SaveIcon from '@mui/icons-material/SaveRounded'
 import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
@@ -17,6 +18,8 @@ import Saves from './Saves'
 
 const Root: FC = () => {
   const { theme, togglePaletteMode } = usePaletteMode()
+  const isUpMd = theme.breakpoints.up('md')
+
   const [savesDialog, setSavesDialog] = useState(false)
 
   return (
@@ -43,7 +46,9 @@ const Root: FC = () => {
             transform: 'translateX(-50%)',
           }}
         >
-          <h3 style={{ margin: 0 }}>Interactive Sheet</h3>
+          <h3 style={{ margin: 0, transform: 'rotate(-2deg)' }}>
+            Interactive Sheet
+          </h3>
           <Box display="flex" justifyContent="center">
             <IconButton
               aria-label="saves"
@@ -74,17 +79,19 @@ const Root: FC = () => {
         </Box>
       </Box>
       <Registration />
-      <Grid container justifyContent="center" spacing={2}>
-        <Grid item>
-          <DigitCode />
+      <Container sx={{ maxWidth: isUpMd ? 704 : undefined }}>
+        <Grid container justifyContent="center" spacing={2}>
+          <Grid item lg={3} md={6} xs={12}>
+            <DigitCode />
+          </Grid>
+          <Grid item lg={3} md={6} xs={12}>
+            <Rounds />
+          </Grid>
+          <Grid item lg={6} xs={12}>
+            <Comments />
+          </Grid>
         </Grid>
-        <Grid item>
-          <Rounds />
-        </Grid>
-        <Grid item>
-          <Comments />
-        </Grid>
-      </Grid>
+      </Container>
       <Saves
         isOpen={savesDialog}
         onClose={() => {

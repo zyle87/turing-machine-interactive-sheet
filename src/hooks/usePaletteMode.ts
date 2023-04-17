@@ -15,6 +15,15 @@ export const usePaletteMode = () => {
   const theme = useMemo(
     () =>
       createTheme({
+        breakpoints: {
+          values: {
+            xs: 0,
+            sm: 600,
+            md: 704,
+            lg: 1384,
+            xl: 1920,
+          },
+        },
         palette: {
           primary: {
             main: '#35b663',

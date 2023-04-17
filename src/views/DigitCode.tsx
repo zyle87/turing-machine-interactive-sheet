@@ -20,7 +20,11 @@ const DigitCode: FC = () => {
   const theme = useTheme()
 
   return (
-    <Paper component="section" id="digit-code-section" sx={{ width: 320 }}>
+    <Paper
+      component="section"
+      id="digit-code-section"
+      sx={{ width: 320, margin: 'auto' }}
+    >
       <ClearButton
         prefixId="digit-code"
         iconRender={<Clear />}

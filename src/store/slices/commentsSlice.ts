@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 type Comment = {
   verifier: Verifier
+  drawing: string
   assumption: string
   conclusion: string
 }
@@ -83,6 +84,18 @@ export const commentsSlice = createSlice({
         )
       }
     },
+    updateDrawing: (
+      state,
+      action: PayloadAction<{ verifier: Verifier; drawing: string }>
+    ) => {
+      const { verifier, drawing } = action.payload
+      const comment = state.find(comment => comment.verifier === verifier)
+      if (comment) {
+        comment.drawing = drawing
+      } else {
+        state.push({ verifier, drawing, assumption: '', conclusion: '' })
+      }
+    },
     updateAssumption: (
       state,
       action: PayloadAction<{ verifier: Verifier; assumption: string }>
@@ -92,7 +105,7 @@ export const commentsSlice = createSlice({
       if (comment) {
         comment.assumption = assumption
       } else {
-        state.push({ verifier, assumption, conclusion: '' })
+        state.push({ verifier, drawing: '', assumption, conclusion: '' })
       }
     },
     updateConclusion: (
@@ -104,7 +117,7 @@ export const commentsSlice = createSlice({
       if (comment) {
         comment.conclusion = conclusion
       } else {
-        state.push({ verifier, assumption: '', conclusion })
+        state.push({ verifier, drawing: '', assumption: '', conclusion })
       }
     },
   },
