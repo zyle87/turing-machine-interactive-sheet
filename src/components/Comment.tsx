@@ -42,15 +42,16 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
     [theme]
   )
 
+  const drawing = useMemo(
+    () => comments.find(comment => comment.verifier === verifier)?.drawing,
+    [comments, verifier]
+  )
+
   useMount(() => {
     setIsMounted(true)
   })
 
   useUpdateEffect(() => {
-    const drawing = comments.find(
-      comment => comment.verifier === verifier
-    )?.drawing
-
     drawing && canvasRef.current?.loadSaveData(drawing)
   }, [isMounted])
 
@@ -91,16 +92,18 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
                   })
                 )
               }
+              saveData={drawing}
               ref={canvasRef}
               brushColor={theme.palette.primary.main}
               brushRadius={1.5}
+              immediateLoading
               canvasHeight={canvasHeight}
               canvasWidth={canvasWidth}
               catenaryColor={theme.palette.primary.main}
               gridColor={'rgba(150,150,150,1'}
               hideGrid
               hideInterface
-              lazyRadius={1}
+              lazyRadius={0.5}
               style={{
                 background: 'none',
                 borderRadius: theme.spacing(2, 2, 0, 0),
@@ -211,11 +214,15 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
           position="absolute"
           top={theme.spacing(1)}
           left={
-            comments.find(comment => comment.verifier === verifier)?.conclusion
-              ? theme.spacing(31.5)
-              : theme.spacing(1)
+            !comments.find(comment => comment.verifier === verifier)?.conclusion
+              ? theme.spacing(1)
+              : undefined
           }
-          sx={{ transition: theme.transitions.create('left') }}
+          right={
+            comments.find(comment => comment.verifier === verifier)?.conclusion
+              ? theme.spacing(1)
+              : undefined
+          }
         >
           <Check color="primary" />
         </Box>
