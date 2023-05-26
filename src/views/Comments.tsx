@@ -39,19 +39,19 @@ const Comments: FC = () => {
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             {(isUpMd
-              ? (['A', 'B', 'C'] as Verifier[])
+              ? (['A', 'C', 'E'] as Verifier[])
               : (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[])
             ).map((verifier, index) => (
               <Comment
                 key={verifier}
                 verifier={verifier}
-                noDivider={isUpMd ? verifier === 'C' : verifier === 'F'}
+                noDivider={isUpMd ? verifier === 'E' : verifier === 'F'}
               />
             ))}
           </Grid>
           {isUpMd && (
             <Grid item md={6} xs={12}>
-              {(['D', 'E', 'F'] as Verifier[]).map((verifier, index) => (
+              {(['B', 'D', 'F'] as Verifier[]).map((verifier, index) => (
                 <Comment
                   key={verifier}
                   verifier={verifier}
