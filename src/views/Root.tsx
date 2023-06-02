@@ -8,6 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import { ThemeProvider } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
 import Comments from './Comments'
@@ -18,7 +19,8 @@ import Saves from './Saves'
 
 const Root: FC = () => {
   const { theme, togglePaletteMode } = usePaletteMode()
-  const isUpMd = theme.breakpoints.up('md')
+  const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
+  const isUpLg = useMediaQuery(theme.breakpoints.up('lg'))
 
   const [savesDialog, setSavesDialog] = useState(false)
 
@@ -82,13 +84,13 @@ const Root: FC = () => {
       <Container sx={{ maxWidth: isUpMd ? 704 : undefined }}>
         <Grid container justifyContent="center" spacing={2}>
           <Grid item lg={3} md={6} xs={12}>
-            <DigitCode />
-          </Grid>
-          <Grid item lg={3} md={6} xs={12}>
             <Rounds />
           </Grid>
-          <Grid item lg={6} xs={12}>
-            <Comments />
+          <Grid item lg={6} md={6} xs={12}>
+            {isUpLg ? <Comments /> : <DigitCode />}
+          </Grid>
+          <Grid item lg={3} xs={12}>
+            {isUpLg ? <DigitCode /> : <Comments />}
           </Grid>
         </Grid>
       </Container>
