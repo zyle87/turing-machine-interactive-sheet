@@ -1,6 +1,6 @@
-import Solved from '@mui/icons-material/CheckRounded'
-import Unsolved from '@mui/icons-material/CloseRounded'
-import Delete from '@mui/icons-material/UndoRounded'
+import SolvedIcon from '@mui/icons-material/CheckRounded'
+import UnsolvedIcon from '@mui/icons-material/CloseRounded'
+import DeleteIcon from '@mui/icons-material/UndoRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -69,6 +69,10 @@ const Round: FC<Props> = ({ round, index }) => {
                 sx={{
                   minWidth: '100%',
                   p: 0,
+                  background:
+                    query.verifier === 'E' || query.verifier === 'F'
+                      ? alpha(theme.palette.primary.main, 0.1)
+                      : null,
                   borderRadius: theme.spacing(
                     0,
                     0,
@@ -90,10 +94,7 @@ const Round: FC<Props> = ({ round, index }) => {
                     pt={1}
                     sx={{
                       textAlign: 'center',
-                      background:
-                        query.verifier === 'E' || query.verifier === 'F'
-                          ? alpha(theme.palette.primary.main, 0.1)
-                          : null,
+
                       borderRadius:
                         query.verifier === 'F'
                           ? theme.spacing(0, 0, 2, 0)
@@ -120,10 +121,10 @@ const Round: FC<Props> = ({ round, index }) => {
                         sx={{ color: theme.palette.text.primary }}
                       >
                         {query.state === 'solved' && (
-                          <Solved fontSize="large" />
+                          <SolvedIcon fontSize="large" />
                         )}
                         {query.state === 'unsolved' && (
-                          <Unsolved fontSize="large" />
+                          <UnsolvedIcon fontSize="large" />
                         )}
                       </Box>
                     </Box>
@@ -147,7 +148,7 @@ const Round: FC<Props> = ({ round, index }) => {
                 dispatch(roundsActions.deleteRound(index))
               }}
             >
-              <Delete />
+              <DeleteIcon />
             </Button>
           </Box>
         </Box>

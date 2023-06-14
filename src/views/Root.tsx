@@ -1,16 +1,28 @@
+import AddIcon from '@mui/icons-material/FiberNewRounded'
+import NewIcon from '@mui/icons-material/ContentPasteRounded'
+import SaveIcon from '@mui/icons-material/ContentPasteSearchRounded'
 import DarkModeIcon from '@mui/icons-material/DarkModeRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import LightModeIcon from '@mui/icons-material/LightModeRounded'
-import SaveIcon from '@mui/icons-material/SaveRounded'
+import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
+import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import { ThemeProvider } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useAppDispatch } from 'hooks/useAppDispatch'
+import { useAppSelector } from 'hooks/useAppSelector'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
+import { useUpdateEffect } from 'react-use'
+import { commentsActions } from 'store/slices/commentsSlice'
+import { digitCodeActions } from 'store/slices/digitCodeSlice'
+import { registrationActions } from 'store/slices/registrationSlice'
+import { roundsActions } from 'store/slices/roundsSlice'
+import { savesActions } from 'store/slices/savesSlice'
 import Comments from './Comments'
 import DigitCode from './DigitCode'
 import Registration from './Registration'
@@ -21,8 +33,16 @@ const Root: FC = () => {
   const { theme, togglePaletteMode } = usePaletteMode()
   const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
   const isUpLg = useMediaQuery(theme.breakpoints.up('lg'))
+  const dispatch = useAppDispatch()
+  const state = useAppSelector(state => state)
 
   const [savesDialog, setSavesDialog] = useState(false)
+  const [resetKey, setResetKey] = useState(Date.now())
+  const [hasBadge, setHasBadge] = useState(false)
+
+  useUpdateEffect(() => {
+    state.saves.length === 0 && setSavesDialog(false)
+  }, [state.saves])
 
   return (
     <ThemeProvider theme={theme}>
@@ -41,25 +61,79 @@ const Root: FC = () => {
         />
         <Box
           position="absolute"
-          bottom={theme.spacing(-1)}
+          bottom={theme.spacing(-3)}
           left="50%"
           sx={{
             background: theme.palette.background.paper,
             transform: 'translateX(-50%)',
           }}
         >
-          <h3 style={{ margin: 0, transform: 'rotate(-2deg)' }}>
+          <h3
+            style={{
+              margin: theme.spacing(0.5, 0, 2),
+              transform: 'rotate(-2deg)',
+            }}
+          >
             Interactive Sheet
           </h3>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" position="relative">
+            <IconButton
+              aria-label="new"
+              onClick={() => {
+                state.registration.hash && setHasBadge(true)
+
+                dispatch(savesActions.save({ ...state, date: Date.now() }))
+
+                dispatch(roundsActions.resetRounds())
+                dispatch(commentsActions.clearComments())
+                dispatch(digitCodeActions.resetCode())
+                dispatch(registrationActions.updateHash(''))
+                dispatch(registrationActions.updateName(''))
+
+                setResetKey(Date.now())
+              }}
+              color="primary"
+              sx={{ position: 'relative' }}
+            >
+              <NewIcon />
+              <Box
+                sx={{
+                  background: theme.palette.background.default,
+                  width: theme.spacing(2),
+                  height: theme.spacing(2),
+                  bottom: 8,
+                  position: 'absolute',
+                  right: 8,
+                }}
+              >
+                <AddIcon
+                  fontSize="small"
+                  sx={{
+                    position: 'absolute',
+                    right: -6,
+                    bottom: -4,
+                    fontSize: 20,
+                  }}
+                />
+              </Box>
+            </IconButton>
             <IconButton
               aria-label="saves"
+              disabled={state.saves.length === 0}
+              color="primary"
               onClick={() => {
+                setHasBadge(false)
                 setSavesDialog(!savesDialog)
               }}
             >
-              <SaveIcon />
+              <Badge variant="dot" color="secondary" invisible={!hasBadge}>
+                <SaveIcon />
+              </Badge>
             </IconButton>
+            <Divider
+              orientation="vertical"
+              sx={{ height: 'auto', margin: theme.spacing(0, 1) }}
+            />
             <IconButton
               aria-label="toggle palette mode"
               onClick={togglePaletteMode}
@@ -81,7 +155,7 @@ const Root: FC = () => {
         </Box>
       </Box>
       <Registration />
-      <Container sx={{ maxWidth: isUpMd ? 704 : undefined }}>
+      <Container key={resetKey} sx={{ maxWidth: isUpMd ? 704 : undefined }}>
         <Grid container justifyContent="center" spacing={2}>
           <Grid item lg={3} md={6} xs={12}>
             <Rounds />
@@ -97,6 +171,9 @@ const Root: FC = () => {
       <Saves
         isOpen={savesDialog}
         onClose={() => {
+          setSavesDialog(false)
+        }}
+        onLoad={() => {
           setSavesDialog(false)
         }}
       />

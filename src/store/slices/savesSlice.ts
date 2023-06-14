@@ -6,10 +6,10 @@ import { RoundsState } from './roundsSlice'
 
 type Save = {
   comments: CommentsState
+  date: number
   digitCode: DigitCodeState
   registration: RegistrationState
   rounds: RoundsState
-  date: number
 }
 
 type SavesState = Save[]
@@ -20,19 +20,35 @@ export const savesSlice = createSlice({
   name: 'saves',
   initialState,
   reducers: {
-    loadSave: (state, action: PayloadAction<Save>) => {
-      const { digitCode, comments, registration, rounds, date } = action.payload
+    save: (state, action: PayloadAction<Save>) => {
+      const { comments, date, digitCode, registration, rounds } = action.payload
 
-      state.push({
-        comments,
-        digitCode,
-        registration,
-        rounds,
-        date,
-      })
+      if (registration.hash === '') return state
+
+      const saveIndex = state.findIndex(
+        save => save.registration.hash === registration.hash
+      )
+
+      if (state[saveIndex]) {
+        state[saveIndex].comments = comments
+        state[saveIndex].digitCode = digitCode
+        state[saveIndex].registration = registration
+        state[saveIndex].rounds = rounds
+        return state
+      } else {
+        state.push({
+          comments,
+          date,
+          digitCode,
+          registration,
+          rounds,
+        })
+      }
     },
     deleteSave: (state, action: PayloadAction<number>) => {
-      state.splice(action.payload, 1)
+      const saveIndex = state.findIndex(save => save.date === action.payload)
+
+      state.splice(saveIndex, 1)
     },
   },
 })
