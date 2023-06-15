@@ -53,7 +53,7 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
           >
             <DrawIcon />
           </IconButton>
-          <IconButton>
+          <IconButton disabled>
             <CardIcon />
           </IconButton>
         </Box>
