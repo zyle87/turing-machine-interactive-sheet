@@ -23,15 +23,7 @@ const Comments: FC = () => {
       component="section"
       sx={{ width: isUpMd ? 656 : 320, margin: theme.spacing(0, 'auto', 2) }}
     >
-      {/* <ClearButton
-        prefixId="comments"
-        iconRender={<Replay />}
-        onClick={() => {
-          dispatch(commentsActions.clearComments())
-          setCommentKey(Date.now())
-        }}
-      /> */}
-      <Box p={2} width={1}>
+      <Box p={2}>
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             {(isUpMd

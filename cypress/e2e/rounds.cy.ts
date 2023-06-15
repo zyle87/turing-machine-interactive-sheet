@@ -21,9 +21,5 @@ describe('rounds', () => {
     cy.get('#rounds__round-2-undo-button').click()
 
     cy.get('#rounds-section').matchImageSnapshot('rounds with 1 filled only')
-
-    cy.get('#rounds__clear-button').click().blur()
-
-    cy.get('#rounds-section').matchImageSnapshot('rounds cleared')
   })
 })

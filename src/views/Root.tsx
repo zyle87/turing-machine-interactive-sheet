@@ -1,7 +1,7 @@
-import AddIcon from '@mui/icons-material/FiberNewRounded'
 import NewIcon from '@mui/icons-material/ContentPasteRounded'
 import SaveIcon from '@mui/icons-material/ContentPasteSearchRounded'
 import DarkModeIcon from '@mui/icons-material/DarkModeRounded'
+import AddIcon from '@mui/icons-material/FiberNewRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import LightModeIcon from '@mui/icons-material/LightModeRounded'
 import Badge from '@mui/material/Badge'
@@ -79,6 +79,7 @@ const Root: FC = () => {
           <Box display="flex" justifyContent="center" position="relative">
             <IconButton
               aria-label="new"
+              color="primary"
               onClick={() => {
                 state.registration.hash && setHasBadge(true)
 
@@ -92,7 +93,6 @@ const Root: FC = () => {
 
                 setResetKey(Date.now())
               }}
-              color="primary"
               sx={{ position: 'relative' }}
             >
               <NewIcon />

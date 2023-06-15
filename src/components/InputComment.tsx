@@ -89,6 +89,7 @@ const InputComment: FC<Props> = ({ verifier }) => {
           style={{
             ...inputStyles,
             marginBottom: theme.spacing(0.5),
+            borderRadius: theme.spacing(2, 2, 0, 0),
           }}
         />
       </Box>
@@ -187,6 +188,7 @@ const InputComment: FC<Props> = ({ verifier }) => {
           style={{
             ...inputStyles,
             marginBottom: theme.spacing(0.5),
+            borderRadius: theme.spacing(0, 0, 2, 2),
           }}
         />
       </Box>

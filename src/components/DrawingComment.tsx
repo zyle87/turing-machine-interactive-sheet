@@ -51,6 +51,7 @@ const DrawingComment: FC<Props> = ({ verifier }) => {
             0.1
           )} 1px, transparent 1px);`,
           marginBottom: theme.spacing(0.5),
+          borderRadius: theme.spacing(2),
         }}
       >
         {canvasWidth && canvasHeight ? (
@@ -77,7 +78,6 @@ const DrawingComment: FC<Props> = ({ verifier }) => {
             lazyRadius={0.5}
             style={{
               background: 'none',
-              borderRadius: theme.spacing(2, 2, 0, 0),
             }}
           />
         ) : null}
