@@ -1,274 +1,166 @@
-import Check from '@mui/icons-material/CheckBoxRounded'
-import Undo from '@mui/icons-material/UndoRounded'
+import CardIcon from '@mui/icons-material/CreditCardRounded'
+import DrawIcon from '@mui/icons-material/GestureRounded'
+import TextIcon from '@mui/icons-material/KeyboardRounded'
+import NumbersIcon from '@mui/icons-material/NumbersRounded'
 import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
+import Button from '@mui/material/Button'
+import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import { alpha, useTheme } from '@mui/material/styles'
-import { useAppDispatch } from 'hooks/useAppDispatch'
-import { useAppSelector } from 'hooks/useAppSelector'
-import { FC, useMemo, useRef, useState } from 'react'
-import CanvasDraw from 'react-canvas-draw'
-import ContentEditable from 'react-contenteditable'
-import { useMeasure, useMount, useUpdateEffect } from 'react-use'
-import { commentsActions } from 'store/slices/commentsSlice'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useCriteriaCard } from 'hooks/useCriteriaCard'
+import { FC, useState } from 'react'
+import { useMount } from 'react-use'
+import DrawingComment from './DrawingComment'
+import InputComment from './InputComment'
 import SingleCharLabel from './SingleCharLabel'
+import TextField from './TextField'
 
 type Props = {
   verifier: Verifier
   noDivider?: boolean
-  eraseDrawing?: boolean
 }
 
 const Comment: FC<Props> = ({ verifier, noDivider }) => {
-  const dispatch = useAppDispatch()
-  const comments = useAppSelector(state => state.comments)
+  const [showCard, setShowCard] = useState(false)
+  const [showInput, setShowInput] = useState(false)
+  const [showDrawing, setShowDrawing] = useState(false)
+
   const theme = useTheme()
-
-  const [showTooltip, setShowTooltip] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
-  const [ref, { width: canvasWidth, height: canvasHeight }] = useMeasure()
-  const canvasRef = useRef<CanvasDraw>(null)
-
-  const inputStyles = useMemo(
-    () => ({
-      backgroundColor: alpha(theme.palette.primary.main, 0.1),
-      padding: theme.spacing(1),
-      paddingRight: theme.spacing(5),
-      minHeight: theme.spacing(6),
-      textTransform: 'uppercase',
-      lineHeight: 1.7,
-    }),
-    [theme]
-  )
-
-  const drawing = useMemo(
-    () => comments.find(comment => comment.verifier === verifier)?.drawing,
-    [comments, verifier]
-  )
+  const isDownMd = useMediaQuery(theme.breakpoints.down('md'))
+  const { card, cardImage, poolLength, setCardFormId, toggleCriteria } =
+    useCriteriaCard(verifier)
 
   useMount(() => {
-    setIsMounted(true)
+    setShowInput(true)
   })
 
-  useUpdateEffect(() => {
-    drawing && canvasRef.current?.loadSaveData(drawing)
-  }, [isMounted])
+  const strippedBackground = `linear-gradient(45deg, #000000 16.67%, transparent 16.67%, transparent 50%, #000000 50%, #000000 66.67%, transparent 66.67%, transparent 100%);
+  background-size: 16.97px 16.97px;;
+  `
 
   return (
-    <Box key={verifier}>
-      <Box position="relative">
-        <Box
-          position="absolute"
-          top={theme.spacing(0.5)}
-          left={theme.spacing(1.5)}
-        >
+    <Box mb={!noDivider ? 4 : undefined}>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={0.5}
+      >
+        <Box ml={1.75}>
           <SingleCharLabel>{verifier}</SingleCharLabel>
         </Box>
-        <Box
-          ref={ref}
-          sx={{
-            marginBottom: theme.spacing(0.5),
-            border: `3px solid ${alpha(theme.palette.primary.main, 0.1)}`,
-            borderRadius: theme.spacing(2, 2, 0, 0),
-            height: 184,
-            backgroundSize: '20px 20px',
-            backgroundImage: `linear-gradient(to right, ${alpha(
-              theme.palette.primary.main,
-              0.1
-            )} 1px, transparent 1px), linear-gradient(to bottom, ${alpha(
-              theme.palette.primary.main,
-              0.1
-            )} 1px, transparent 1px);`,
-          }}
-        >
-          {canvasWidth && canvasHeight ? (
-            <CanvasDraw
-              onChange={draw =>
-                dispatch(
-                  commentsActions.updateDrawing({
-                    verifier,
-                    drawing: draw.getSaveData(),
-                  })
-                )
-              }
-              saveData={drawing}
-              ref={canvasRef}
-              brushColor={theme.palette.primary.main}
-              brushRadius={1.5}
-              immediateLoading
-              canvasHeight={canvasHeight}
-              canvasWidth={canvasWidth}
-              catenaryColor={theme.palette.primary.main}
-              gridColor={'rgba(150,150,150,1'}
-              hideGrid
-              hideInterface
-              lazyRadius={0.5}
-              style={{
-                background: 'none',
-                borderRadius: theme.spacing(2, 2, 0, 0),
-              }}
-            />
-          ) : null}
-        </Box>
-        <Box
-          position="absolute"
-          top={theme.spacing(0.5)}
-          right={theme.spacing(1)}
-        >
+        <Box display="flex">
           <IconButton
-            aria-label="undo"
-            color="secondary"
-            size="small"
-            disabled={
-              !comments.find(comment => comment.verifier === verifier)
-                ?.drawing ||
-              comments
-                .find(comment => comment.verifier === verifier)
-                ?.drawing.split('[]').length === 2 ||
-              false
-            }
             onClick={() => {
-              canvasRef.current?.undo()
+              setShowInput(true)
+              setShowDrawing(false)
+              setShowCard(false)
             }}
+            color={showInput ? 'primary' : 'default'}
           >
-            <Undo />
+            <TextIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              setShowInput(false)
+              setShowDrawing(false)
+              setShowCard(true)
+            }}
+            color={showCard ? 'primary' : 'default'}
+          >
+            <CardIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              setShowInput(false)
+              setShowDrawing(true)
+              setShowCard(false)
+            }}
+            color={showDrawing ? 'primary' : 'default'}
+          >
+            <DrawIcon />
           </IconButton>
         </Box>
-        <ContentEditable
-          onChange={event => {
-            const value =
-              event.target.value === '<div><br></div>' ||
-              event.target.value === '<br>'
-                ? ''
-                : event.target.value
-
-            dispatch(
-              commentsActions.updateAssumption({
-                verifier,
-                assumption: value.toLowerCase(),
-              })
-            )
-          }}
-          html={
-            comments.find(comment => comment.verifier === verifier)
-              ?.assumption || ''
-          }
-          onFocus={_ => {
-            setShowTooltip(true)
-            dispatch(
-              commentsActions.decodeComment({
-                verifier,
-                category: 'assumption',
-              })
-            )
-          }}
-          onBlur={_ => {
-            setShowTooltip(false)
-            dispatch(commentsActions.encodeAllComments())
-          }}
-          style={{
-            ...inputStyles,
-          }}
-        />
       </Box>
-      <Box
-        my={showTooltip ? 0.5 : 0.25}
-        height={showTooltip ? theme.spacing(7) : 0}
-        sx={{
-          backgroundColor: alpha(theme.palette.primary.main, 0.05),
-          color: theme.palette.primary.main,
-          overflow: 'hidden',
-          transition: theme.transitions.create('height'),
-        }}
-      >
-        <Box display="flex" justifyContent="space-between" px={2}>
-          {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
-            <Box key={shape} display="flex" alignItems="center">
-              <Box mr={1}>
-                <Typography>
-                  :{shape[0].toUpperCase()}
-                  {shape[1].toUpperCase()}: =
-                  {shape === 'triangle' && (
-                    <span style={{ fontFamily: 'Shapes' }}> i</span>
-                  )}
-                  {shape === 'square' && (
-                    <span style={{ fontFamily: 'Shapes' }}> j</span>
-                  )}
-                  {shape === 'circle' && (
-                    <span style={{ fontFamily: 'Shapes' }}> g</span>
-                  )}
-                </Typography>
+      <Collapse in={showCard}>
+        <Box position="relative">
+          <Box mb={0.5}>
+            <TextField
+              iconRender={<NumbersIcon />}
+              min={0}
+              max={poolLength}
+              type="number"
+              onChange={value => {
+                setCardFormId(Number(value))
+              }}
+              value={card?.id || null}
+              customRadius={theme.spacing(2)}
+            />
+          </Box>
+          {card && (
+            <Box>
+              <img
+                src={cardImage}
+                alt={cardImage}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                }}
+              />
+              <Box position="absolute" top={0} display="flex" width={1}></Box>
+              <Box
+                position="absolute"
+                bottom={10}
+                display="flex"
+                width={1}
+                px={1.0}
+                pb={1.2}
+              >
+                {Array(card?.criteriaSlots)
+                  .fill(null)
+                  .map((_, index) => (
+                    <Button
+                      key={index}
+                      sx={{
+                        flexGrow: 1,
+                        backgroundImage: card?.irrelevantCriteria.includes(
+                          index + 1
+                        )
+                          ? strippedBackground
+                          : undefined,
+                        height: isDownMd ? 50 : 54,
+                        minWidth: 0,
+                        borderRadius:
+                          index === 0
+                            ? theme.spacing(1, 0, 0, 1)
+                            : index === card?.criteriaSlots - 1
+                            ? theme.spacing(0, 1, 1, 0)
+                            : 0,
+                        '&:hover': {
+                          background: card?.irrelevantCriteria.includes(
+                            index + 1
+                          )
+                            ? strippedBackground
+                            : undefined,
+                        },
+                      }}
+                      onClick={() => {
+                        toggleCriteria(index + 1)
+                      }}
+                    />
+                  ))}
               </Box>
             </Box>
-          ))}
+          )}
         </Box>
-        <Box textAlign="center">
-          <Typography>
-            ~<span style={{ opacity: 0.2 }}> ... </span>~ = strikethrough
-          </Typography>
-        </Box>
-      </Box>
-      <Box position="relative">
-        <Box
-          position="absolute"
-          top={theme.spacing(1)}
-          left={
-            !comments.find(comment => comment.verifier === verifier)?.conclusion
-              ? theme.spacing(1)
-              : undefined
-          }
-          right={
-            comments.find(comment => comment.verifier === verifier)?.conclusion
-              ? theme.spacing(1)
-              : undefined
-          }
-        >
-          <Check color="primary" />
-        </Box>
-        <ContentEditable
-          onChange={event => {
-            const value =
-              event.target.value === '<div><br></div>' ||
-              event.target.value === '<br>'
-                ? ''
-                : event.target.value
-
-            dispatch(
-              commentsActions.updateConclusion({
-                verifier,
-                conclusion: value.toLowerCase(),
-              })
-            )
-          }}
-          html={
-            comments.find(comment => comment.verifier === verifier)
-              ?.conclusion || ''
-          }
-          onFocus={_ => {
-            setShowTooltip(true)
-            dispatch(
-              commentsActions.decodeComment({
-                verifier,
-                category: 'conclusion',
-              })
-            )
-          }}
-          onBlur={_ => {
-            setShowTooltip(false)
-            dispatch(commentsActions.encodeAllComments())
-          }}
-          style={{
-            ...inputStyles,
-            borderRadius: theme.spacing(0, 0, 2, 2),
-          }}
-        />
-      </Box>
-      {!noDivider && (
-        <Box my={2}>
-          <Divider />
-        </Box>
-      )}
+      </Collapse>
+      <Collapse in={showInput}>
+        <InputComment verifier={verifier} />
+      </Collapse>
+      <Collapse in={showDrawing} sx={{ position: 'relative' }}>
+        <DrawingComment verifier={verifier} />
+      </Collapse>
     </Box>
   )
 }

@@ -12,7 +12,7 @@ Object {
   "saves": Array [],
   "settings": Object {
     "paletteMode": "light",
-    "storeVersion": 1681715743023,
+    "storeVersion": 1686925293753,
   },
 }
 `;
@@ -29,7 +29,7 @@ Object {
   "saves": Array [],
   "settings": Object {
     "paletteMode": "dark",
-    "storeVersion": 1681715743023,
+    "storeVersion": 1686925293753,
   },
 }
 `;

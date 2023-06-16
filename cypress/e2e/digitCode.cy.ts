@@ -17,9 +17,5 @@ describe('digitCode', () => {
     cy.get('#digit-code__circle-4-button').click().blur()
 
     cy.get('#digit-code-section').matchImageSnapshot('digit code filled')
-
-    cy.get('#digit-code__clear-button').click().blur()
-
-    cy.get('#digit-code-section').matchImageSnapshot('digit code cleared')
   })
 })

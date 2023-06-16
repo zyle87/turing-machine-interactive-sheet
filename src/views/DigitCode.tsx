@@ -1,4 +1,3 @@
-import Clear from '@mui/icons-material/HideSourceRounded'
 import Incorrect from '@mui/icons-material/HorizontalRuleRounded'
 import Correct from '@mui/icons-material/PanoramaFishEye'
 import Box from '@mui/material/Box'
@@ -6,7 +5,6 @@ import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
-import ClearButton from 'components/ClearButton'
 import ShapeIcon from 'components/ShapeIcon'
 import SingleCharLabel from 'components/SingleCharLabel'
 import { useAppDispatch } from 'hooks/useAppDispatch'
@@ -25,13 +23,13 @@ const DigitCode: FC = () => {
       id="digit-code-section"
       sx={{ width: 320, margin: 'auto' }}
     >
-      <ClearButton
+      {/* <ClearButton
         prefixId="digit-code"
-        iconRender={<Clear />}
+        iconRender={<Replay />}
         onClick={() => {
           dispatch(digitCodeActions.resetCode())
         }}
-      />
+      /> */}
       <Box p={2}>
         <Grid container>
           {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
