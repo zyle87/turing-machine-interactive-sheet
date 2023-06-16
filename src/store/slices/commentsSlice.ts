@@ -1,13 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { CriteriaCard, criteriaCardPool } from 'hooks/useCriteriaCard'
 
 type Comment = {
   verifier: Verifier
   drawing: string
   assumption: string
   conclusion: string
+  criteriaCard: CriteriaCard
 }
 
-type CommentCategory = keyof Omit<Comment, 'verifier'>
+type CommentCategory = keyof Pick<Comment, 'assumption' | 'conclusion'>
 
 export type CommentsState = Comment[]
 
@@ -93,7 +95,13 @@ export const commentsSlice = createSlice({
       if (comment) {
         comment.drawing = drawing
       } else {
-        state.push({ verifier, drawing, assumption: '', conclusion: '' })
+        state.push({
+          verifier,
+          drawing,
+          assumption: '',
+          conclusion: '',
+          criteriaCard: criteriaCardPool[0],
+        })
       }
     },
     updateAssumption: (
@@ -105,7 +113,13 @@ export const commentsSlice = createSlice({
       if (comment) {
         comment.assumption = assumption
       } else {
-        state.push({ verifier, drawing: '', assumption, conclusion: '' })
+        state.push({
+          assumption,
+          conclusion: '',
+          criteriaCard: criteriaCardPool[0],
+          drawing: '',
+          verifier,
+        })
       }
     },
     updateConclusion: (
@@ -117,7 +131,34 @@ export const commentsSlice = createSlice({
       if (comment) {
         comment.conclusion = conclusion
       } else {
-        state.push({ verifier, drawing: '', assumption: '', conclusion })
+        state.push({
+          assumption: '',
+          conclusion,
+          criteriaCard: criteriaCardPool[0],
+          drawing: '',
+          verifier,
+        })
+      }
+    },
+    updateCard: (
+      state,
+      action: PayloadAction<{ verifier: Verifier; card?: CriteriaCard }>
+    ) => {
+      const { verifier, card } = action.payload
+
+      if (!card) return
+
+      const comment = state.find(comment => comment.verifier === verifier)
+      if (comment) {
+        comment.criteriaCard = card
+      } else {
+        state.push({
+          assumption: '',
+          conclusion: '',
+          criteriaCard: card,
+          drawing: '',
+          verifier,
+        })
       }
     },
   },

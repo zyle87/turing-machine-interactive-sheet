@@ -175,6 +175,7 @@ const Root: FC = () => {
         }}
         onLoad={() => {
           setSavesDialog(false)
+          setResetKey(Date.now())
         }}
       />
     </ThemeProvider>

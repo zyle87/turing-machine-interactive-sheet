@@ -11,11 +11,14 @@ type Props = {
   prefixId?: string
   maxChars?: number
   onChange?: (value: string) => void
+  onBlur?: () => void
   onReset?: () => void
   type?: 'text' | 'number' | 'password'
   value?: Nullable<number | string>
   withReset?: boolean
   withStackRadius?: boolean
+  min?: number
+  max?: number
 }
 
 const TextField: FC<Props> = props => {
@@ -47,12 +50,15 @@ const TextField: FC<Props> = props => {
       <input
         id={`${props.prefixId}-text-field`}
         type={props.type}
-        min={1}
-        max={5}
+        min={props.min || 1}
+        max={props.max || 5}
         maxLength={props.maxChars}
         value={props.value === null ? '' : props.value}
         onChange={event => {
           props.onChange && props.onChange(event.target.value)
+        }}
+        onBlur={() => {
+          props.onBlur && props.onBlur()
         }}
         style={{
           ...theme.typography.body1,
