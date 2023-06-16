@@ -85,7 +85,7 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
       </Box>
       <Collapse in={showCard}>
         <Box position="relative">
-          <Box mb={2}>
+          <Box mb={0.5}>
             <TextField
               iconRender={<NumbersIcon />}
               min={0}
