@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { CriteriaCard, criteriaCardPool } from 'hooks/useCriteriaCard'
+import { CriteriaCard } from 'hooks/useCriteriaCard'
 
 type Comment = {
   verifier: Verifier
   drawing: string
   assumption: string
   conclusion: string
-  criteriaCard: CriteriaCard
+  criteriaCards: CriteriaCard[]
 }
 
 type CommentCategory = keyof Pick<Comment, 'assumption' | 'conclusion'>
@@ -96,11 +96,11 @@ export const commentsSlice = createSlice({
         comment.drawing = drawing
       } else {
         state.push({
-          verifier,
-          drawing,
           assumption: '',
           conclusion: '',
-          criteriaCard: criteriaCardPool[0],
+          criteriaCards: [],
+          drawing,
+          verifier,
         })
       }
     },
@@ -116,7 +116,7 @@ export const commentsSlice = createSlice({
         state.push({
           assumption,
           conclusion: '',
-          criteriaCard: criteriaCardPool[0],
+          criteriaCards: [],
           drawing: '',
           verifier,
         })
@@ -134,7 +134,7 @@ export const commentsSlice = createSlice({
         state.push({
           assumption: '',
           conclusion,
-          criteriaCard: criteriaCardPool[0],
+          criteriaCards: [],
           drawing: '',
           verifier,
         })
@@ -142,20 +142,24 @@ export const commentsSlice = createSlice({
     },
     updateCard: (
       state,
-      action: PayloadAction<{ verifier: Verifier; card?: CriteriaCard }>
+      action: PayloadAction<{
+        verifier: Verifier
+        index: number
+        card?: CriteriaCard
+      }>
     ) => {
-      const { verifier, card } = action.payload
+      const { verifier, index, card } = action.payload
 
       if (!card) return
 
       const comment = state.find(comment => comment.verifier === verifier)
       if (comment) {
-        comment.criteriaCard = card
+        comment.criteriaCards[index] = card
       } else {
         state.push({
           assumption: '',
           conclusion: '',
-          criteriaCard: card,
+          criteriaCards: [card],
           drawing: '',
           verifier,
         })
