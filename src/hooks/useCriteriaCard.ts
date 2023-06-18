@@ -52,11 +52,13 @@ const getCardUrl = (card?: CriteriaCard) =>
       ).slice(-2)}.png`
     : ''
 
-export const useCriteriaCard = (verifier: Verifier) => {
+export const useCriteriaCard = (verifier: Verifier, index: number) => {
   const comments = useAppSelector(state => state.comments)
 
   const [card, setCard] = useState<Undefinable<CriteriaCard>>(
-    comments.find(comment => comment.verifier === verifier)?.criteriaCard
+    comments.find(comment => comment.verifier === verifier)?.criteriaCards[
+      index
+    ]
   )
 
   const dispatch = useAppDispatch()
@@ -90,7 +92,7 @@ export const useCriteriaCard = (verifier: Verifier) => {
   const poolLength = useMemo(() => criteriaCardPool.length, [])
 
   useUpdateEffect(() => {
-    dispatch(commentsActions.updateCard({ verifier, card }))
+    dispatch(commentsActions.updateCard({ verifier, index, card }))
   }, [card])
 
   return {
