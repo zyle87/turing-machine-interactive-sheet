@@ -23,13 +23,6 @@ const DigitCode: FC = () => {
       id="digit-code-section"
       sx={{ width: 320, margin: 'auto' }}
     >
-      {/* <ClearButton
-        prefixId="digit-code"
-        iconRender={<Replay />}
-        onClick={() => {
-          dispatch(digitCodeActions.resetCode())
-        }}
-      /> */}
       <Box p={2}>
         <Grid container>
           {(['triangle', 'square', 'circle'] as Shape[]).map(shape => (
