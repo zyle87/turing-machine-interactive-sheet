@@ -43,6 +43,22 @@ export const criteriaCardPool: CriteriaCard[] = [
   { id: 30, criteriaSlots: 3, irrelevantCriteria: [] },
   { id: 31, criteriaSlots: 3, irrelevantCriteria: [] },
   { id: 32, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 33, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 34, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 35, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 36, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 37, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 38, criteriaSlots: 3, irrelevantCriteria: [] },
+  { id: 39, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 40, criteriaSlots: 9, irrelevantCriteria: [] },
+  { id: 41, criteriaSlots: 9, irrelevantCriteria: [] },
+  { id: 42, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 43, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 44, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 45, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 46, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 47, criteriaSlots: 6, irrelevantCriteria: [] },
+  { id: 48, criteriaSlots: 9, irrelevantCriteria: [] },
 ]
 
 const getCardUrl = (card?: CriteriaCard) =>
