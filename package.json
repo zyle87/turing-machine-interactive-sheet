@@ -1,6 +1,6 @@
 {
   "name": "turing-machine-interactive-sheet",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
