@@ -42,9 +42,13 @@ const Registration: FC = () => {
 
         switch (data.status) {
           case 'ok':
-            const { fake, ind }: { ind: number[]; fake?: number[] } = data
+            const {
+              fake,
+              ind,
+              m,
+            }: { ind: number[]; fake?: number[]; m: number } = data
             dispatch(registrationActions.fetchDone())
-            dispatch(commentsActions.setCards({ ind, fake }))
+            dispatch(commentsActions.setCards({ ind, fake, m }))
             break
           case 'bad':
             setShowNotFound(true)

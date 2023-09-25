@@ -31,9 +31,10 @@ export const commentsSlice = createSlice({
       action: PayloadAction<{
         fake?: number[]
         ind: number[]
+        m?: number
       }>
     ) => {
-      const { fake, ind } = action.payload
+      const { fake, ind, m } = action.payload
 
       for (let i = 0; i < ind.length; i++) {
         if (fake) {
@@ -48,9 +49,16 @@ export const commentsSlice = createSlice({
             ],
           })
         } else {
+          const card = ind.sort((n1, n2) => n1 - n2)[i]
+
           state.push({
             verifier: verifiers[i],
-            criteriaCards: [criteriaCardPool.find(cc => cc.id === ind[i])!],
+            criteriaCards: [
+              {
+                ...criteriaCardPool.find(cc => cc.id === card)!,
+                nightmare: m === 2,
+              },
+            ],
           })
         }
       }
