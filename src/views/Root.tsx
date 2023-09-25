@@ -20,10 +20,7 @@ import { useAppSelector } from 'hooks/useAppSelector'
 import { usePaletteMode } from 'hooks/usePaletteMode'
 import { FC, useState } from 'react'
 import { useUpdateEffect } from 'react-use'
-import { commentsActions } from 'store/slices/commentsSlice'
-import { digitCodeActions } from 'store/slices/digitCodeSlice'
 import { registrationActions } from 'store/slices/registrationSlice'
-import { roundsActions } from 'store/slices/roundsSlice'
 import { savesActions } from 'store/slices/savesSlice'
 import Comments from './Comments'
 import DigitCode from './DigitCode'
@@ -135,9 +132,7 @@ const Root: FC = () => {
             <IconButton
               aria-label="save"
               color="primary"
-              disabled={
-                state.registration.status !== 'ready' || !canBeSave()
-              }
+              disabled={state.registration.status !== 'ready' || !canBeSave()}
               onClick={() => {
                 state.registration.hash && setHasBadge(true)
 

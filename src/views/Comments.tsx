@@ -4,11 +4,9 @@ import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Comment from 'components/Comment'
-import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
 
 const Comments: FC = () => {
-  const registration = useAppSelector(state => state.registration)
   const theme = useTheme()
   const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
 

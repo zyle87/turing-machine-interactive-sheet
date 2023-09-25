@@ -83,7 +83,7 @@ export const useCriteriaCard = (verifier: Verifier, index: number) => {
         index
       ]
     )
-  }, [comments])
+  }, [comments, index, verifier])
 
   const dispatch = useAppDispatch()
 

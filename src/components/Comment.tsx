@@ -25,7 +25,7 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
   return (
     <Box>
       <Box mb={noDivider ? undefined : 2}>
-        <Box  position="relative">
+        <Box position="relative">
           {firstCard && (
             <>
               <Box
