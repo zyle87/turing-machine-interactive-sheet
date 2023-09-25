@@ -7,6 +7,7 @@ import { FC, ReactNode } from 'react'
 type Props = {
   customFontSize?: string
   customRadius?: string
+  disabled?: boolean
   iconRender?: ReactNode
   prefixId?: string
   maxChars?: number
@@ -53,6 +54,7 @@ const TextField: FC<Props> = props => {
         min={props.min || 1}
         max={props.max || 5}
         maxLength={props.maxChars}
+        disabled={props.disabled}
         value={props.value === null ? '' : props.value}
         onChange={event => {
           props.onChange && props.onChange(event.target.value)

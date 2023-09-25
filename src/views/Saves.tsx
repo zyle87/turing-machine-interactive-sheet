@@ -30,7 +30,7 @@ const Saves: FC<Props> = props => {
 
   return (
     <Dialog onClose={props.onClose} open={props.isOpen}>
-      <List sx={{ width: 320, p: 2 }}>
+      <List sx={{  p: 2 }}>
         {state.saves.length === 0 ? (
           <Box textAlign="center">
             <Hourglass color="primary" />
@@ -43,9 +43,10 @@ const Saves: FC<Props> = props => {
                 alignItems="center"
                 justifyContent="space-between"
                 width={1}
+                mr={2}
               >
                 <Box>
-                  <Typography># {save.registration.hash}</Typography>
+                  <Typography>{save.registration.name} - #{save.registration.hash}</Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: theme.palette.text.secondary }}

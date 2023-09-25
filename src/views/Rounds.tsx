@@ -1,4 +1,4 @@
-import Add from '@mui/icons-material/AddTaskRounded'
+import AddIcon from '@mui/icons-material/AddTaskRounded'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -33,7 +33,7 @@ const Rounds: FC = () => {
             dispatch(roundsActions.addRound())
           }}
         >
-          <Add />
+          <AddIcon />
         </Button>
       </Box>
     </Paper>

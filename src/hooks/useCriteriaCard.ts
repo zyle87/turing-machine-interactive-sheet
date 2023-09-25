@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useUpdateEffect } from 'react-use'
 import { commentsActions } from 'store/slices/commentsSlice'
 import { useAppDispatch } from './useAppDispatch'
@@ -77,11 +77,15 @@ export const useCriteriaCard = (verifier: Verifier, index: number) => {
     ]
   )
 
-  const dispatch = useAppDispatch()
+  useEffect(() => {
+    setCard(
+      comments.find(comment => comment.verifier === verifier)?.criteriaCards[
+        index
+      ]
+    )
+  }, [comments])
 
-  const setCardFormId = (id: number) => {
-    setCard(criteriaCardPool.find(card => card.id === id))
-  }
+  const dispatch = useAppDispatch()
 
   const toggleCriteria = (criteria: number) => {
     if (!card) return
@@ -105,7 +109,6 @@ export const useCriteriaCard = (verifier: Verifier, index: number) => {
   }
 
   const cardImage = useMemo(() => getCardUrl(card), [card])
-  const poolLength = useMemo(() => criteriaCardPool.length, [])
 
   useUpdateEffect(() => {
     dispatch(commentsActions.updateCard({ verifier, index, card }))
@@ -114,8 +117,6 @@ export const useCriteriaCard = (verifier: Verifier, index: number) => {
   return {
     card,
     cardImage,
-    setCardFormId,
-    poolLength,
     toggleCriteria,
   }
 }

@@ -1,11 +1,13 @@
-import NewIcon from '@mui/icons-material/ContentPasteRounded'
-import SaveIcon from '@mui/icons-material/ContentPasteSearchRounded'
+import EraseIcon from '@mui/icons-material/AutoFixHighRounded'
+import ContentIcon from '@mui/icons-material/ContentPasteRounded'
+import SearchIcon from '@mui/icons-material/ContentPasteSearchRounded'
 import DarkModeIcon from '@mui/icons-material/DarkModeRounded'
-import AddIcon from '@mui/icons-material/FiberNewRounded'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import LightModeIcon from '@mui/icons-material/LightModeRounded'
+import SaveIcon from '@mui/icons-material/SaveRounded'
 import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
+import Collapse from '@mui/material/Collapse'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Divider from '@mui/material/Divider'
@@ -37,12 +39,34 @@ const Root: FC = () => {
   const state = useAppSelector(state => state)
 
   const [savesDialog, setSavesDialog] = useState(false)
-  const [resetKey, setResetKey] = useState(Date.now())
   const [hasBadge, setHasBadge] = useState(false)
 
   useUpdateEffect(() => {
     state.saves.length === 0 && setSavesDialog(false)
   }, [state.saves])
+
+  const canBeSave = () => {
+    const save = state.saves.find(
+      save => save.registration.hash === state.registration.hash
+    )
+
+    if (!save) {
+      return true
+    }
+
+    const from = {
+      rounds: state.rounds,
+      comments: state.comments,
+      digitCode: state.digitCode,
+    }
+    const to = {
+      rounds: save?.rounds,
+      comments: save?.comments,
+      digitCode: save?.digitCode,
+    }
+
+    return JSON.stringify(from) !== JSON.stringify(to)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -52,7 +76,7 @@ const Root: FC = () => {
         position="relative"
         width={320}
         margin="auto"
-        mb={5}
+        mb={6}
       >
         <img
           src={process.env.PUBLIC_URL + 'assets/logo.png'}
@@ -79,23 +103,14 @@ const Root: FC = () => {
           <Box display="flex" justifyContent="center" position="relative">
             <IconButton
               aria-label="new"
+              disabled={state.registration.status !== 'ready'}
               color="primary"
-              onClick={() => {
-                state.registration.hash && setHasBadge(true)
-
-                dispatch(savesActions.save({ ...state, date: Date.now() }))
-
-                dispatch(roundsActions.resetRounds())
-                dispatch(commentsActions.clearComments())
-                dispatch(digitCodeActions.resetCode())
-                dispatch(registrationActions.updateHash(''))
-                dispatch(registrationActions.updateName(''))
-
-                setResetKey(Date.now())
-              }}
               sx={{ position: 'relative' }}
+              onClick={() => {
+                dispatch(registrationActions.reset())
+              }}
             >
-              <NewIcon />
+              <ContentIcon />
               <Box
                 sx={{
                   background: theme.palette.background.default,
@@ -106,13 +121,48 @@ const Root: FC = () => {
                   right: 8,
                 }}
               >
-                <AddIcon
+                <EraseIcon
                   fontSize="small"
                   sx={{
                     position: 'absolute',
-                    right: -6,
-                    bottom: -4,
-                    fontSize: 20,
+                    right: -4,
+                    bottom: -3,
+                    fontSize: 18,
+                  }}
+                />
+              </Box>
+            </IconButton>
+            <IconButton
+              aria-label="save"
+              color="primary"
+              disabled={
+                state.registration.status !== 'ready' || !canBeSave()
+              }
+              onClick={() => {
+                state.registration.hash && setHasBadge(true)
+
+                dispatch(savesActions.save({ ...state, date: Date.now() }))
+              }}
+              sx={{ position: 'relative' }}
+            >
+              <ContentIcon />
+              <Box
+                sx={{
+                  background: theme.palette.background.default,
+                  width: theme.spacing(2),
+                  height: theme.spacing(2),
+                  bottom: 8,
+                  position: 'absolute',
+                  right: 8,
+                }}
+              >
+                <SaveIcon
+                  fontSize="small"
+                  sx={{
+                    position: 'absolute',
+                    right: -3,
+                    bottom: -3,
+                    fontSize: 18,
                   }}
                 />
               </Box>
@@ -127,7 +177,7 @@ const Root: FC = () => {
               }}
             >
               <Badge variant="dot" color="secondary" invisible={!hasBadge}>
-                <SaveIcon />
+                <SearchIcon />
               </Badge>
             </IconButton>
             <Divider
@@ -155,18 +205,20 @@ const Root: FC = () => {
         </Box>
       </Box>
       <Registration />
-      <Container key={resetKey} sx={{ maxWidth: isUpMd ? 704 : undefined }}>
-        <Grid container justifyContent="center" spacing={2}>
-          <Grid item lg={3} md={6} xs={12}>
-            <Rounds />
+      <Container sx={{ maxWidth: isUpMd ? 704 : undefined }}>
+        <Collapse in={state.registration.status === 'ready'}>
+          <Grid container justifyContent="center" spacing={2}>
+            <Grid item lg={3} md={6} xs={12}>
+              <Rounds />
+            </Grid>
+            <Grid item lg={6} md={6} xs={12}>
+              {isUpLg ? <Comments /> : <DigitCode />}
+            </Grid>
+            <Grid item lg={3} xs={12}>
+              {isUpLg ? <DigitCode /> : <Comments />}
+            </Grid>
           </Grid>
-          <Grid item lg={6} md={6} xs={12}>
-            {isUpLg ? <Comments /> : <DigitCode />}
-          </Grid>
-          <Grid item lg={3} xs={12}>
-            {isUpLg ? <DigitCode /> : <Comments />}
-          </Grid>
-        </Grid>
+        </Collapse>
       </Container>
       <Saves
         isOpen={savesDialog}
@@ -175,7 +227,6 @@ const Root: FC = () => {
         }}
         onLoad={() => {
           setSavesDialog(false)
-          setResetKey(Date.now())
         }}
       />
     </ThemeProvider>
