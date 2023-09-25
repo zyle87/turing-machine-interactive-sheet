@@ -28,19 +28,21 @@ const Comment: FC<Props> = ({ verifier, noDivider }) => {
         <Box position="relative">
           {firstCard && (
             <>
-              <Box
-                position="absolute"
-                zIndex={1}
-                px={2}
-                sx={theme => ({
-                  background: theme.palette.primary.main,
-                  color: theme.palette.common.white,
-                  borderTopLeftRadius: theme.spacing(1),
-                  borderBottomRightRadius: theme.spacing(3),
-                })}
-              >
-                <SingleCharLabel white>{verifier}</SingleCharLabel>
-              </Box>
+              {!firstCard.nightmare && (
+                <Box
+                  position="absolute"
+                  zIndex={1}
+                  px={2}
+                  sx={theme => ({
+                    background: theme.palette.primary.main,
+                    color: theme.palette.common.white,
+                    borderTopLeftRadius: theme.spacing(1),
+                    borderBottomRightRadius: theme.spacing(3),
+                  })}
+                >
+                  <SingleCharLabel white>{verifier}</SingleCharLabel>
+                </Box>
+              )}
               <Box mb={1}>
                 <Card
                   card={firstCard}

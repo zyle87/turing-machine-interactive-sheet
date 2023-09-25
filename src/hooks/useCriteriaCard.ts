@@ -8,6 +8,7 @@ export type CriteriaCard = {
   id: number
   criteriaSlots: 1 | 2 | 3 | 4 | 6 | 9
   irrelevantCriteria: number[]
+  nightmare?: boolean
 }
 
 export const criteriaCardPool: CriteriaCard[] = [
