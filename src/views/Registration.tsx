@@ -71,6 +71,7 @@ const Registration: FC = () => {
       mb={2}
     >
       <Snackbar
+        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
         open={showNotFound}
         onClose={() => {
           setShowNotFound(false)

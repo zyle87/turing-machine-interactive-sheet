@@ -91,7 +91,7 @@ const Root: FC = () => {
         >
           <h3
             style={{
-              margin: theme.spacing(0.5, 0, 2),
+              margin: theme.spacing(-0.25, 0, 2),
               transform: 'rotate(-2deg)',
             }}
           >

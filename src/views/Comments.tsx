@@ -4,19 +4,21 @@ import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Comment from 'components/Comment'
+import { useAppSelector } from 'hooks/useAppSelector'
 import { FC } from 'react'
 
 const Comments: FC = () => {
+  const comments = useAppSelector(state => state.comments)
   const theme = useTheme()
   const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <Paper
       component="section"
-      sx={{ width: isUpMd ? 656 : 320, margin: theme.spacing(0, 'auto', 2) }}
+      sx={{ width: isUpMd ? 656 : 320, margin: -theme.spacing(0, 'auto', 2) }}
     >
-      <Box p={2}>
-        <Grid container spacing={2}>
+      <Box p={2} mb={2}>
+        <Grid container spacing={2} mb={comments.length === 4 ? -2 : 0}>
           <Grid item md={6} xs={12}>
             {(isUpMd
               ? (['A', 'C', 'E'] as Verifier[])
