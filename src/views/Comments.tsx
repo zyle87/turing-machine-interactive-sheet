@@ -4,19 +4,11 @@ import Paper from '@mui/material/Paper'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Comment from 'components/Comment'
-import { useAppDispatch } from 'hooks/useAppDispatch'
 import { FC } from 'react'
-import { useMount } from 'react-use'
-import { commentsActions } from 'store/slices/commentsSlice'
 
 const Comments: FC = () => {
-  const dispatch = useAppDispatch()
   const theme = useTheme()
   const isUpMd = useMediaQuery(theme.breakpoints.up('md'))
-
-  useMount(() => {
-    dispatch(commentsActions.encodeAllComments())
-  })
 
   return (
     <Paper

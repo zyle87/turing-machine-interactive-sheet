@@ -4,7 +4,7 @@ import { DigitCodeState } from './digitCodeSlice'
 import { RegistrationState } from './registrationSlice'
 import { RoundsState } from './roundsSlice'
 
-type Save = {
+export type Save = {
   comments: CommentsState
   date: number
   digitCode: DigitCodeState

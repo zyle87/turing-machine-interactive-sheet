@@ -7,12 +7,57 @@ Object {
   "registration": Object {
     "hash": "",
     "name": "",
+    "status": "new",
   },
-  "rounds": Array [],
+  "rounds": Array [
+    Object {
+      "code": Array [
+        Object {
+          "digit": null,
+          "shape": "triangle",
+        },
+        Object {
+          "digit": null,
+          "shape": "square",
+        },
+        Object {
+          "digit": null,
+          "shape": "circle",
+        },
+      ],
+      "isPristine": false,
+      "queries": Array [
+        Object {
+          "state": "unknown",
+          "verifier": "A",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "B",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "C",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "D",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "E",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "F",
+        },
+      ],
+    },
+  ],
   "saves": Array [],
   "settings": Object {
     "paletteMode": "light",
-    "storeVersion": 1687075260434,
+    "storeVersion": 1695655881142,
   },
 }
 `;
@@ -24,12 +69,57 @@ Object {
   "registration": Object {
     "hash": "",
     "name": "",
+    "status": "new",
   },
-  "rounds": Array [],
+  "rounds": Array [
+    Object {
+      "code": Array [
+        Object {
+          "digit": null,
+          "shape": "triangle",
+        },
+        Object {
+          "digit": null,
+          "shape": "square",
+        },
+        Object {
+          "digit": null,
+          "shape": "circle",
+        },
+      ],
+      "isPristine": false,
+      "queries": Array [
+        Object {
+          "state": "unknown",
+          "verifier": "A",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "B",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "C",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "D",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "E",
+        },
+        Object {
+          "state": "unknown",
+          "verifier": "F",
+        },
+      ],
+    },
+  ],
   "saves": Array [],
   "settings": Object {
     "paletteMode": "dark",
-    "storeVersion": 1687075260434,
+    "storeVersion": 1695655881142,
   },
 }
 `;

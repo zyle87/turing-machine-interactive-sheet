@@ -1,12 +1,18 @@
 import Typography from '@mui/material/Typography'
 import { FC, PropsWithChildren } from 'react'
 
-const SingleCharLabel: FC<PropsWithChildren> = props => (
+type Props = PropsWithChildren & {
+  white?: boolean
+}
+
+const SingleCharLabel: FC<Props> = props => (
   <Typography
     component="span"
     variant="h6"
     sx={theme => ({
-      color: theme.palette.primary.main,
+      color: props.white
+        ? theme.palette.common.white
+        : theme.palette.primary.main,
       fontWeight: 800,
     })}
   >

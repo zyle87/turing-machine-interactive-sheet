@@ -13,7 +13,7 @@ export const digitCodeSlice = createSlice({
   initialState,
   reducers: {
     load: (_, action: PayloadAction<DigitCodeState>) => action.payload,
-    resetCode: () => initialState,
+    reset: () => initialState,
     toggleDigitState: (
       state,
       action: PayloadAction<{ shape: Shape; digit: Digit }>

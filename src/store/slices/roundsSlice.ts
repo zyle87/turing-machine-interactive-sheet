@@ -16,14 +16,26 @@ export type RoundsState = {
   isPristine: boolean
 }[]
 
-const initialState: RoundsState = []
+const initialState: RoundsState = [
+  {
+    code: (['triangle', 'square', 'circle'] as Shape[]).map(shape => ({
+      shape,
+      digit: null,
+    })),
+    queries: (['A', 'B', 'C', 'D', 'E', 'F'] as Verifier[]).map(verifier => ({
+      verifier,
+      state: 'unknown',
+    })),
+    isPristine: false,
+  },
+]
 
 export const roundsSlice = createSlice({
   name: 'rounds',
   initialState,
   reducers: {
     load: (_, action: PayloadAction<RoundsState>) => action.payload,
-    resetRounds: () => initialState,
+    reset: () => initialState,
     deleteRound: (state, action: PayloadAction<number>) => {
       state.splice(action.payload, 1)
     },

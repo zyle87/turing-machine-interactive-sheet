@@ -105,14 +105,12 @@ const Card: FC<Props> = props => {
           }}
         >
           <Button
-            key={i}
             sx={getStrippedStyles(i + 1, large ? 3 : 2)}
             onClick={() => {
               props.onToggleCriteria(i + 1)
             }}
           />
           <Button
-            key={i + 1}
             sx={getStrippedStyles(i + 2, large ? 3 : 2)}
             onClick={() => {
               props.onToggleCriteria(i + 2)
@@ -120,7 +118,6 @@ const Card: FC<Props> = props => {
           />
           {large && (
             <Button
-              key={i + 1}
               sx={getStrippedStyles(i + 3, 3)}
               onClick={() => {
                 props.onToggleCriteria(i + 3)
