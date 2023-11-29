@@ -27,6 +27,8 @@ import DigitCode from './DigitCode'
 import Registration from './Registration'
 import Rounds from './Rounds'
 import Saves from './Saves'
+import { Select } from '@mui/material'
+import { settingsActions } from 'store/slices/settingsSlice'
 
 const Root: FC = () => {
   const { theme, togglePaletteMode } = usePaletteMode()
@@ -65,6 +67,8 @@ const Root: FC = () => {
     return JSON.stringify(from) !== JSON.stringify(to)
   }
 
+  const languageOptions: Language[] = ['BR', 'CNS', 'CNT', 'CZ', 'DE', 'EN', 'FR', 'GR', 'HU', 'IT', 'JP', 'KR', 'NL', 'PL', 'RU', 'SP', 'TH', 'UA']
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -98,6 +102,30 @@ const Root: FC = () => {
             Interactive Sheet
           </h3>
           <Box display="flex" justifyContent="center" position="relative">
+            <Select
+              native
+              value={state.settings.language}
+              onChange={event => {
+                dispatch(
+                  settingsActions.updateLanguage(event.target.value)
+                )
+              }}
+              inputProps={{
+                name: 'languege',
+                id: 'languege',
+              }}
+              sx={{
+                width: 80,
+                '&:before': {
+                  borderBottom: 'none',
+                },
+                '&:after': {
+                  borderBottom: 'none',
+                },
+              }}
+            >
+              {languageOptions.map((key) => <option key={key} value={key}>{key}</option>)}
+            </Select>
             <IconButton
               aria-label="new"
               disabled={state.registration.status !== 'ready'}

@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 export type SettingsState = {
   paletteMode: PaletteMode
   storeVersion: number
+  language: Language
 }
 
 const initialState: SettingsState = {
   paletteMode: 'light',
   storeVersion: parseInt(process.env.REACT_APP_STORE_VERSION),
+  language: 'EN',
 }
 
 export const settingsSlice = createSlice({
@@ -16,6 +18,9 @@ export const settingsSlice = createSlice({
   reducers: {
     togglePaletteMode: state => {
       state.paletteMode = state.paletteMode === 'light' ? 'dark' : 'light'
+    },
+    updateLanguage: (state, action) => {
+      state.language = action.payload
     },
   },
 })
