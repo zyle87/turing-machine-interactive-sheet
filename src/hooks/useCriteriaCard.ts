@@ -9,6 +9,7 @@ export type CriteriaCard = {
   criteriaSlots: 1 | 2 | 3 | 4 | 6 | 9
   irrelevantCriteria: number[]
   nightmare?: boolean
+  language?: string
 }
 
 export const criteriaCardPool: CriteriaCard[] = [
@@ -64,9 +65,7 @@ export const criteriaCardPool: CriteriaCard[] = [
 
 const getCardUrl = (card?: CriteriaCard) =>
   card
-    ? `https://turingmachine.info/images/criteriacards/EN/TM_GameCards_EN-${(
-        '0' + card.id
-      ).slice(-2)}.png`
+    ? `https://turingmachine.info/images/criteriacards/${card.language}/TM_GameCards_${card.language}-${( "0" + card.id ).slice(-2)}.png`
     : ''
 
 export const useCriteriaCard = (verifier: Verifier, index: number) => {

@@ -32,9 +32,18 @@ export const commentsSlice = createSlice({
         fake?: number[]
         ind: number[]
         m?: number
+        language: string
       }>
     ) => {
-      const { fake, ind, m } = action.payload
+      const { fake, ind, m, language } = action.payload
+
+      const addAdditionalCardAttributes = (card: number) => {
+        return {
+          ...criteriaCardPool.find((cc) => cc.id === card)!,
+          language,
+          nightmare: m === 2
+        }
+      }
 
       for (let i = 0; i < ind.length; i++) {
         if (fake) {
@@ -44,8 +53,8 @@ export const commentsSlice = createSlice({
           state.push({
             verifier: verifiers[i],
             criteriaCards: [
-              criteriaCardPool.find(cc => cc.id === shuffledCards[0])!,
-              criteriaCardPool.find(cc => cc.id === shuffledCards[1])!,
+              addAdditionalCardAttributes(shuffledCards[0]),
+              addAdditionalCardAttributes(shuffledCards[1]),
             ],
           })
         } else {
@@ -54,10 +63,7 @@ export const commentsSlice = createSlice({
           state.push({
             verifier: verifiers[i],
             criteriaCards: [
-              {
-                ...criteriaCardPool.find(cc => cc.id === card)!,
-                nightmare: m === 2,
-              },
+              addAdditionalCardAttributes(card),
             ],
           })
         }
