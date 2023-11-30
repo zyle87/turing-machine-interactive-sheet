@@ -3,7 +3,6 @@ import HashIcon from '@mui/icons-material/NumbersRounded'
 import PersonIcon from '@mui/icons-material/PersonRounded'
 import OkIcon from '@mui/icons-material/ThumbUpAltRounded'
 import SearchIcon from '@mui/icons-material/TravelExploreRounded'
-import LanguageIcon from '@mui/icons-material/TranslateRounded'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -19,13 +18,10 @@ import { commentsActions } from 'store/slices/commentsSlice'
 import { digitCodeActions } from 'store/slices/digitCodeSlice'
 import { registrationActions } from 'store/slices/registrationSlice'
 import { roundsActions } from 'store/slices/roundsSlice'
-import Dropdown from 'components/LanguageDropdown'
-import { useLanguageState } from 'hooks/useLanguageState'
 
 const Registration: FC = () => {
   const dispatch = useAppDispatch()
   const registration = useAppSelector(state => state.registration)
-  const [language, setLanguage] = useLanguageState('EN', 'lang')
   const [showNotFound, setShowNotFound] = useState(false)
   const theme = useTheme()
 
@@ -52,7 +48,7 @@ const Registration: FC = () => {
               m,
             }: { ind: number[]; fake?: number[]; m: number } = data
             dispatch(registrationActions.fetchDone())
-            dispatch(commentsActions.setCards({ ind, fake, m, language }))
+            dispatch(commentsActions.setCards({ ind, fake, m }))
             break
           case 'bad':
             setShowNotFound(true)
@@ -129,22 +125,6 @@ const Registration: FC = () => {
         />
         <Box pt={0.5}>
           <Collapse in={registration.status !== 'ready'}>
-            <Dropdown
-              prefixId='registration__lang'
-              disabled={registration.status !== 'new'}
-              iconRender={<LanguageIcon />}
-              withStackRadius
-              value={language}
-              maxChars={2}
-              onChange={(value) => setLanguage(value)}
-              withReset={registration.status === 'new'}
-              onReset={() => setLanguage('EN')}
-              customRadius={
-                registration.status === 'ready'
-                  ? theme.spacing(0, 0, 2, 2)
-                  : undefined
-              }
-            />
             <Button
               aria-label="search"
               disabled={!registration.hash || registration.status !== 'new'}

@@ -9,7 +9,6 @@ export type CriteriaCard = {
   criteriaSlots: 1 | 2 | 3 | 4 | 6 | 9
   irrelevantCriteria: number[]
   nightmare?: boolean
-  language?: string
 }
 
 export const criteriaCardPool: CriteriaCard[] = [
@@ -63,12 +62,13 @@ export const criteriaCardPool: CriteriaCard[] = [
   { id: 48, criteriaSlots: 9, irrelevantCriteria: [] },
 ]
 
-const getCardUrl = (card?: CriteriaCard) =>
-  card
-    ? `https://turingmachine.info/images/criteriacards/${card.language}/TM_GameCards_${card.language}-${( "0" + card.id ).slice(-2)}.png`
-    : ''
+const getCardUrl = (card?: CriteriaCard, language?: string) =>
+  (card && language)
+    ? `https://turingmachine.info/images/criteriacards/${language}/TM_GameCards_${language}-${( "0" + card.id ).slice(-2)}.png`
+    : "";
 
 export const useCriteriaCard = (verifier: Verifier, index: number) => {
+  const language = useAppSelector((state) => state.settings.language);
   const comments = useAppSelector(state => state.comments)
 
   const [card, setCard] = useState<Undefinable<CriteriaCard>>(
@@ -108,7 +108,7 @@ export const useCriteriaCard = (verifier: Verifier, index: number) => {
     }
   }
 
-  const cardImage = useMemo(() => getCardUrl(card), [card])
+  const cardImage = useMemo(() => getCardUrl(card, language), [card, language]);
 
   useUpdateEffect(() => {
     dispatch(commentsActions.updateCard({ verifier, index, card }))

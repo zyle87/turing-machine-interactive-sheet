@@ -32,15 +32,13 @@ export const commentsSlice = createSlice({
         fake?: number[]
         ind: number[]
         m?: number
-        language: string
       }>
     ) => {
-      const { fake, ind, m, language } = action.payload
+      const { fake, ind, m } = action.payload
 
       const addAdditionalCardAttributes = (card: number) => {
         return {
           ...criteriaCardPool.find((cc) => cc.id === card)!,
-          language,
           nightmare: m === 2
         }
       }
