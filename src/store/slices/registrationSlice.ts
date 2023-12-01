@@ -34,7 +34,12 @@ export const registrationSlice = createSlice({
       state.name = action.payload
     },
     updateHash: (state, action: PayloadAction<string>) => {
-      state.hash = action.payload.replace('#', '')
+      state.hash = action.payload
+        .replace("#", "")
+        .replaceAll(" ", "")
+        .split(/(.{3})/)
+        .filter(e => e)
+        .join(" ");
     },
   },
 })
