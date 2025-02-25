@@ -19,6 +19,11 @@ import { digitCodeActions } from 'store/slices/digitCodeSlice'
 import { registrationActions } from 'store/slices/registrationSlice'
 import { roundsActions } from 'store/slices/roundsSlice'
 
+
+declare global {
+  interface Window { turing_game_uuid: string; }
+}
+
 function generateUUID() {
   // Public Domain/MIT
   var d = new Date().getTime(); //Timestamp
