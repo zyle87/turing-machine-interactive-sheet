@@ -204,7 +204,7 @@ const Root: FC = () => {
             </IconButton>
             <IconButton
               aria-label="github"
-              href="https://github.com/accuzyle/turing-machine-interactive-sheet"
+              href="https://github.com/zyle87/turing-machine-interactive-sheet"
               target="_blank"
             >
               <GitHubIcon />
