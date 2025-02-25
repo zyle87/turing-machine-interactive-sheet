@@ -4,6 +4,16 @@ import { settingsActions } from '../store/slices/settingsSlice'
 import { useAppDispatch } from './useAppDispatch'
 import { useAppSelector } from './useAppSelector'
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    languageSwitch: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    languageSwitch?: PaletteOptions['primary'];
+  }
+}
+
 export const usePaletteMode = () => {
   const dispatch = useAppDispatch()
   const settings = useAppSelector(state => state.settings)
@@ -30,6 +40,12 @@ export const usePaletteMode = () => {
           },
           secondary: {
             main: '#ff1744',
+          },
+          languageSwitch: {
+            100: '#E5EAF2',
+            300: '#C7D0DD',
+            800: '#303740',
+            900: '#1C2025',
           },
           mode: settings.paletteMode,
         },
